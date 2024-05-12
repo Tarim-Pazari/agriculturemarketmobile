@@ -51,7 +51,7 @@ LocaleConfig.locales['de'] = {
     'Cumartesi',
   ],
   dayNamesShort: ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'],
-  today: 'Heute',
+  today: 'Bugün',
 };
 LocaleConfig.defaultLocale = 'de';
 

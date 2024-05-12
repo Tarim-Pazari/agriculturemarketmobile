@@ -19,6 +19,7 @@ const ProductCard = (props: {item: ProductResponse}) => {
         <ProductHeader>
           <ProductName>{item.name}</ProductName>
           <ProductReminderButton
+            hitSlop={10}
             activeOpacity={0.8}
             onPress={() => setSelectedReminder(!selectedReminder)}
             theme={{

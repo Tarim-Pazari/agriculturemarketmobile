@@ -4,10 +4,6 @@ import {
   FlatList,
   SafeAreaView,
   ActivityIndicator,
-  TouchableOpacity,
-  Alert,
-  Platform,
-  PermissionsAndroid,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {CalendarProvider, WeekCalendar} from 'react-native-calendars';
@@ -19,63 +15,16 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import ProductCard from '../components/ProductCard/ProductCard';
 import ProductResponse from '../payload/response/ProductResponse';
-import Geolocation from '@react-native-community/geolocation';
-import AlertDialog from '../components/AlertDialog/AlertDialog';
-import {
-  PERMISSIONS,
-  check,
-  request,
-  requestLocationAccuracy,
-} from 'react-native-permissions';
+import CurrentPositionHook from '../hooks/CurrentPositionHook';
+import RequestLocationHook from '../hooks/RequestLocationHook';
 
 export default function HomeScreen() {
   const [selectedDay, setSelectedDay] = useState(dayjs().format('YYYY-MM-DD'));
   const [items, setItems] = useState<Array<ProductResponse>>([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
-  const [location, setLocation] = useState(null);
-
-  useEffect(() => {
-    requestLocation();
-    return () => {};
-  }, []);
-
-  const requestLocation = () => {
-    request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
-      .then(result => {
-        if (result === 'granted') {
-          getCurrentPosition();
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-  const getCurrentPosition = () => {
-    Geolocation.getCurrentPosition(
-      position => {
-        const {latitude, longitude} = position.coords;
-        fetch(
-          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyDWYCTI8yo7w8BHdxlgEbmABI0boJXy-JQ`,
-        )
-          .then(response => response.json())
-          .then(result => {
-            let cityName = result.results[0].address_components.filter(
-              (item: any) => item.types.includes('administrative_area_level_1'),
-            )?.[0]?.long_name;
-            Alert.alert('Konum', cityName);
-          });
-      },
-      error => {
-        console.log('a');
-      },
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
-    );
-  };
-
   useEffect(() => {
     loadData();
-
     return () => {};
   }, [selectedDay]);
 

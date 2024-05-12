@@ -3,7 +3,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faShop} from '@fortawesome/free-solid-svg-icons';
+import {faBars, faShop} from '@fortawesome/free-solid-svg-icons';
 import {faBell} from '@fortawesome/free-regular-svg-icons';
 
 const Tab = createBottomTabNavigator();
@@ -36,9 +36,9 @@ export default function BottomTabNavigator() {
         name="Home2"
         options={{
           tabBarIcon: ({color, size}) => (
-            <FontAwesomeIcon icon={faShop} size={20} color={'#fab421'} />
+            <FontAwesomeIcon icon={faBars} size={20} color={'#fab421'} />
           ),
-          tabBarLabel: 'Gıda Fiyatları',
+          tabBarLabel: 'Menü',
           tabBarLabelStyle: {
             fontSize: 10,
             color: '#868182',
