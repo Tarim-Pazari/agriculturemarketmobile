@@ -11,6 +11,7 @@ const Colors = {
     iconColor: '#EBB24E',
     success: '#488E48',
     descriptionColor: '#797979',
+    inputPlaceholder: '#868182',
   },
   dark: {
     background: '#121212',
@@ -22,6 +23,7 @@ const Colors = {
     iconColor: '#EBB24E',
     success: '#488E48',
     descriptionColor: '#797979',
+    inputPlaceholder: '#868182',
   },
 };
 

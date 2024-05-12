@@ -38,6 +38,7 @@ export default function Input({
       )}
       <CustomInput
         autoFocus={false}
+        placeholderTextColor={colors.inputPlaceholder}
         {...props}
         secureTextEntry={props.secureTextEntry && !passwordShow}
         onFocus={handleFocus}

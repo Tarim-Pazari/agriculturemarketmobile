@@ -5,6 +5,9 @@ import {
   SafeAreaView,
   ActivityIndicator,
   TouchableOpacity,
+  Alert,
+  Platform,
+  PermissionsAndroid,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {CalendarProvider, WeekCalendar} from 'react-native-calendars';
@@ -14,36 +17,72 @@ import {
   faExclamationTriangle,
   faSearch,
 } from '@fortawesome/free-solid-svg-icons';
-import styled from 'styled-components';
-import CustomText from '../components/Text/Text';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faBell, faHeart} from '@fortawesome/free-regular-svg-icons';
+import ProductCard from '../components/ProductCard/ProductCard';
+import ProductResponse from '../payload/response/ProductResponse';
+import Geolocation from '@react-native-community/geolocation';
 import AlertDialog from '../components/AlertDialog/AlertDialog';
-
-interface Item {
-  date: string;
-  icon: string;
-  id: number;
-  name: string;
-  minPrice: number;
-  maxPrice: number;
-  unit: string;
-}
+import {
+  PERMISSIONS,
+  check,
+  request,
+  requestLocationAccuracy,
+} from 'react-native-permissions';
 
 export default function HomeScreen() {
   const [selectedDay, setSelectedDay] = useState(dayjs().format('YYYY-MM-DD'));
-  const [items, setItems] = useState<Array<Item>>([]);
+  const [items, setItems] = useState<Array<ProductResponse>>([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
+  const [location, setLocation] = useState(null);
+
+  useEffect(() => {
+    requestLocation();
+    return () => {};
+  }, []);
+
+  const requestLocation = () => {
+    request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
+      .then(result => {
+        if (result === 'granted') {
+          getCurrentPosition();
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+  const getCurrentPosition = () => {
+    Geolocation.getCurrentPosition(
+      position => {
+        const {latitude, longitude} = position.coords;
+        fetch(
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyDWYCTI8yo7w8BHdxlgEbmABI0boJXy-JQ`,
+        )
+          .then(response => response.json())
+          .then(result => {
+            let cityName = result.results[0].address_components.filter(
+              (item: any) => item.types.includes('administrative_area_level_1'),
+            )?.[0]?.long_name;
+            Alert.alert('Konum', cityName);
+          });
+      },
+      error => {
+        console.log('a');
+      },
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+    );
+  };
+
   useEffect(() => {
     loadData();
+
     return () => {};
   }, [selectedDay]);
 
   const loadData = async () => {
     setLoading(true);
     let fixedDate = dayjs(selectedDay).format('YYYYMMDD');
-    fetch(`http://localhost:8080/api/v1/daily-price/${fixedDate}`, {
+    fetch(`http://192.168.1.140:8080/api/v1/daily-price/${fixedDate}`, {
       method: 'GET',
     })
       .then(response => response.json())
@@ -64,52 +103,7 @@ export default function HomeScreen() {
       .catch(error => console.error(error))
       .finally(() => setLoading(false));
   };
-  const Card = (props: {item: Item}) => {
-    const {item} = props;
-    const [selectedReminder, setSelectedReminder] = useState(false);
-    return (
-      <CardContainer>
-        <ProductImage
-          resizeMode="cover"
-          source={{uri: 'http://localhost:8080/' + item.icon}}
-        />
-        <ProductContainer>
-          <ProductHeader>
-            <ProductName>{item.name}</ProductName>
-            <ProductReminderButton
-              activeOpacity={0.8}
-              onPress={() => setSelectedReminder(!selectedReminder)}
-              theme={{
-                selected: selectedReminder,
-              }}>
-              <FontAwesomeIcon
-                icon={faBell}
-                size={12}
-                color={selectedReminder ? '#FFF' : '#fab421'}
-              />
-            </ProductReminderButton>
-          </ProductHeader>
-          <ProductInformation>
-            <ProductUnit>{item.unit}</ProductUnit>
-            <ProductPrices>
-              <ProductMinPrice>
-                {new Intl.NumberFormat('tr-TR', {
-                  style: 'currency',
-                  currency: 'TRY',
-                }).format(item.minPrice)}
-              </ProductMinPrice>
-              <ProductMaxPrice>
-                {new Intl.NumberFormat('tr-TR', {
-                  style: 'currency',
-                  currency: 'TRY',
-                }).format(item.maxPrice)}
-              </ProductMaxPrice>
-            </ProductPrices>
-          </ProductInformation>
-        </ProductContainer>
-      </CardContainer>
-    );
-  };
+
   return (
     <View style={{flex: 1}}>
       <SafeAreaView
@@ -158,7 +152,7 @@ export default function HomeScreen() {
           <FlatList
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            renderItem={({item}) => <Card item={item} />}
+            renderItem={({item}) => <ProductCard item={item} />}
             keyExtractor={item => item.id.toString()}
             data={items?.filter?.(item => {
               return item.name.toLowerCase().includes(search.toLowerCase());
@@ -169,66 +163,3 @@ export default function HomeScreen() {
     </View>
   );
 }
-const CardContainer = styled(View)`
-  flex-direction: row;
-  border-width: 1px;
-  border-color: #ddd;
-  padding: 10px;
-  margin-vertical: 5px;
-  border-radius: 5px;
-  align-items: center;
-  gap: 10px;
-  margin-horizontal: 10px;
-  box-shadow: 3px 3px 3px #ddd;
-  background-color: #fff;
-`;
-const ProductContainer = styled(View)`
-  flex: 1;
-  gap: 8px;
-`;
-const ProductInformation = styled(View)`
-  flex-direction: row;
-  justify-content: space-between;
-`;
-const ProductImage = styled(Image)`
-  width: 50px;
-  height: 50px;
-`;
-const ProductHeader = styled(View)`
-  flex-direction: row;
-  justify-content: space-between;
-`;
-const ProductName = styled(CustomText)`
-  font-size: 13px;
-  color: #444;
-  font-weight: bold;
-`;
-const ProductUnit = styled(CustomText)`
-  font-size: 11px;
-  color: #4e4e4e;
-`;
-const ProductPrices = styled(View)`
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 3px;
-  align-items: center;
-`;
-const ProductMinPrice = styled(CustomText)`
-  font-size: 11px;
-  color: #ef0606;
-`;
-const ProductMaxPrice = styled(CustomText)`
-  font-size: 11px;
-  color: #60a918;
-`;
-const ProductReminderButton = styled(TouchableOpacity)`
-  height: 20px;
-  width: 20px;
-  background-color: ${props => (props.theme.selected ? '#fab421' : '#FFF')};
-  justify-content: center;
-  align-items: center;
-  border-radius: 15px;
-  border-width: 1px;
-  border-color: #fab421;
-`;
