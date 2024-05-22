@@ -1,18 +1,16 @@
-/**
- * @format
- */
-
 import {AppRegistry, LogBox} from 'react-native';
-import App from './src/screens/HomeScreen';
 import {name as appName} from './app.json';
 import {LocaleConfig} from 'react-native-calendars';
-import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import RootNavigator from './src/navigation/RootNavigator';
 import {ModalPortal} from 'react-native-modals';
-import BottomTabNavigator from './src/navigation/BottomTabNavigator';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import {persistor, store} from './src/store';
+import 'react-native-gesture-handler';
+import React from 'react';
 LogBox.ignoreAllLogs();
-LocaleConfig.locales['de'] = {
+LocaleConfig.locales['tr'] = {
   monthNames: [
     'Ocak',
     'Şubat',
@@ -53,14 +51,20 @@ LocaleConfig.locales['de'] = {
   dayNamesShort: ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'],
   today: 'Bugün',
 };
-LocaleConfig.defaultLocale = 'de';
+LocaleConfig.defaultLocale = 'tr';
 
 const AgricultureMarket = () => {
   return (
-    <NavigationContainer>
-      <BottomTabNavigator />
-      <ModalPortal />
-    </NavigationContainer>
+    <React.StrictMode>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
+        </PersistGate>
+        <ModalPortal />
+      </Provider>
+    </React.StrictMode>
   );
 };
 

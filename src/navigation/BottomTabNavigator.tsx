@@ -1,13 +1,27 @@
-import {View, Text} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faBars, faShop} from '@fortawesome/free-solid-svg-icons';
-import {faBell} from '@fortawesome/free-regular-svg-icons';
+import {faUser} from '@fortawesome/free-regular-svg-icons';
 
-const Tab = createBottomTabNavigator();
-export default function BottomTabNavigator() {
+import {BottomTabParamList} from '../types/navigator';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import LoginScreen from '../screens/LoginScreen';
+import MenuScreen from '../screens/MenuScreen';
+import useThemeColors from '../constant/useColor';
+import {useSelector} from 'react-redux';
+import {RootState} from '../store';
+import UserScreen from '../screens/UserScreen';
+
+const Tab = createBottomTabNavigator<BottomTabParamList>();
+export default function BottomTabNavigator(
+  props: NativeStackScreenProps<BottomTabParamList>,
+) {
+  const colors = useThemeColors();
+  const iconColor = colors.iconColor;
+  const inActiveIconColor = '#D8E7D6';
+  const {user} = useSelector((state: RootState) => state.auth);
   return (
     <Tab.Navigator
       screenOptions={{
@@ -16,52 +30,78 @@ export default function BottomTabNavigator() {
           borderTopWidth: 0,
           borderTopColor: '#fff',
         },
+        tabBarActiveTintColor: iconColor,
+        tabBarInactiveTintColor: inActiveIconColor,
+        tabBarLabelStyle: {
+          fontSize: 11,
+          fontWeight: 'bold',
+        },
       }}>
       <Tab.Screen
         name="Home"
         options={{
-          tabBarIcon: ({color, size}) => (
-            <FontAwesomeIcon icon={faShop} size={20} color={'#fab421'} />
+          tabBarIcon: ({color, size, focused}) => (
+            <FontAwesomeIcon
+              icon={faShop}
+              size={20}
+              color={focused ? iconColor : inActiveIconColor}
+            />
           ),
-          tabBarLabel: 'Gıda Fiyatları',
-          tabBarLabelStyle: {
-            fontSize: 10,
-            color: '#868182',
-            fontWeight: 'bold',
-          },
+          tabBarLabel: 'Fiyatlar',
         }}
         component={HomeScreen}
       />
       <Tab.Screen
-        name="Home2"
+        name="Menu"
         options={{
-          tabBarIcon: ({color, size}) => (
-            <FontAwesomeIcon icon={faBars} size={20} color={'#fab421'} />
+          tabBarIcon: ({color, size, focused}) => (
+            <FontAwesomeIcon
+              icon={faBars}
+              size={20}
+              color={focused ? iconColor : inActiveIconColor}
+            />
           ),
           tabBarLabel: 'Menü',
-          tabBarLabelStyle: {
-            fontSize: 10,
-            color: '#868182',
-            fontWeight: 'bold',
-          },
         }}
-        component={HomeScreen}
+        component={MenuScreen}
       />
-      <Tab.Screen
-        name="Hom3"
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <FontAwesomeIcon icon={faBell} size={20} color={'#fab421'} />
-          ),
-          tabBarLabel: 'Gıda Fiyatları',
-          tabBarLabelStyle: {
-            fontSize: 10,
-            color: '#868182',
-            fontWeight: 'bold',
-          },
-        }}
-        component={HomeScreen}
-      />
+      {user === null ? (
+        <Tab.Screen
+          name={'LoginScreen'}
+          listeners={{
+            tabPress: e => {
+              e.preventDefault();
+              props.navigation.navigate('LoginScreen');
+            },
+          }}
+          options={{
+            tabBarIcon: ({color, size, focused}) => (
+              <FontAwesomeIcon
+                icon={faUser}
+                size={20}
+                color={focused ? iconColor : inActiveIconColor}
+              />
+            ),
+            tabBarLabel: 'Profil',
+          }}
+          component={LoginScreen}
+        />
+      ) : (
+        <Tab.Screen
+          name={'UserScreen'}
+          options={{
+            tabBarIcon: ({color, size, focused}) => (
+              <FontAwesomeIcon
+                icon={faUser}
+                size={20}
+                color={focused ? iconColor : inActiveIconColor}
+              />
+            ),
+            tabBarLabel: 'Profil',
+          }}
+          component={UserScreen}
+        />
+      )}
     </Tab.Navigator>
   );
 }

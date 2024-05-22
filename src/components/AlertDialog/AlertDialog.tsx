@@ -31,6 +31,120 @@ interface ModalProps {
 class AlertDialog {
   ids: any[] = [];
 
+  showLogoutModal(onConfirm: () => void) {
+    return new Promise(resolve => {
+      const id = ModalPortal.show(
+        <Modal
+          visible={true}
+          onTouchOutside={() => {
+            ModalPortal.dismiss(id);
+            this.ids.pop();
+            resolve(false);
+          }}
+          overlayBackgroundColor={'black'}
+          modalAnimation={
+            new SlideAnimation({
+              slideFrom: 'bottom',
+            })
+          }>
+          <ModalContent style={{backgroundColor: '#fff'}}>
+            <View style={{width: SIZES.width - 80}}>
+              <View>
+                <TitleContainer>
+                  <Title adjustsFontSizeToFit>Çıkış Yap</Title>
+                </TitleContainer>
+                <Divider marginTop="10" marginBottom="10" />
+              </View>
+              <View>
+                <Text style={{textAlign: 'center'}}>
+                  Çıkış yapmak istediğinize emin misiniz?
+                </Text>
+              </View>
+              <ButtonContainer>
+                <Button
+                  outline
+                  text="İptal"
+                  onPress={() => {
+                    ModalPortal.dismiss(id);
+                    this.ids.pop();
+                    resolve(false);
+                  }}
+                />
+                <Button
+                  text="Çıkış Yap"
+                  onPress={() => {
+                    onConfirm();
+                    ModalPortal.dismiss(id);
+                    this.ids.pop();
+                    resolve(true);
+                  }}
+                />
+              </ButtonContainer>
+            </View>
+          </ModalContent>
+        </Modal>,
+      );
+
+      this.ids.push(id);
+    });
+  }
+
+  showLoginModal() {
+    return new Promise(resolve => {
+      const id = ModalPortal.show(
+        <Modal
+          visible={true}
+          onTouchOutside={() => {
+            ModalPortal.dismiss(id);
+            this.ids.pop();
+            resolve(false);
+          }}
+          overlayBackgroundColor={'black'}
+          modalAnimation={
+            new SlideAnimation({
+              slideFrom: 'bottom',
+            })
+          }>
+          <ModalContent style={{backgroundColor: '#fff'}}>
+            <View style={{width: SIZES.width - 80}}>
+              <View>
+                <TitleContainer>
+                  <Title adjustsFontSizeToFit>Giriş Yap</Title>
+                </TitleContainer>
+                <Divider marginTop="10" marginBottom="10" />
+              </View>
+              <View>
+                <Text style={{textAlign: 'center'}}>
+                  Lütfen giriş yapmak için gerekli bilgileri giriniz.
+                </Text>
+              </View>
+              <ButtonContainer>
+                <Button
+                  text="Giriş Yap"
+                  onPress={() => {
+                    ModalPortal.dismiss(id);
+                    this.ids.pop();
+                    resolve(true);
+                  }}
+                />
+                <Button
+                  outline
+                  text="Kayıt Ol"
+                  onPress={() => {
+                    ModalPortal.dismiss(id);
+                    this.ids.pop();
+                    resolve(false);
+                  }}
+                />
+              </ButtonContainer>
+            </View>
+          </ModalContent>
+        </Modal>,
+      );
+
+      this.ids.push(id);
+    });
+  }
   showModal(props: ModalProps): Promise<boolean> {
     return new Promise(resolve => {
       const id = ModalPortal.show(

@@ -19,20 +19,37 @@ export const SIZES = {
   margin: 15,
 
   //Font Sizes
+
+  //App dimensions
+  width,
+  height,
+};
+export const FONTSIZES = {
+  default: 14,
   h1: 40,
   h2: 28,
   h3: 24,
   h4: 20,
   h5: 18,
   h6: 16,
-
-  //App dimensions
-  width,
-  height,
+  body1: 30,
+  body2: 24,
+  body3: 20,
+  body4: 16,
+  body5: 14,
+  body6: 12,
+  caption1: 10,
+  caption2: 8,
+  description1: 12,
+  description2: 10,
+  description3: 8,
 };
 export const COLORS = {
-  primaryText: '#e78577',
-  textBlack: '#000',
-  textLink: '#e78577',
-  grey: 'grey',
+  default: '#1F8505',
+  primary: '#0D361A',
+  secondary: '#143722',
+  black: '#000',
+  white: '#fff',
+  link: '#e78577',
+  grey: '#868182',
 };

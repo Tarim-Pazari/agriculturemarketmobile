@@ -10,21 +10,32 @@ import styled from 'styled-components';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCheck} from '@fortawesome/free-solid-svg-icons';
 import useThemeColors from '../../constant/useColor';
+import CustomText from '../Text/Text';
 
 interface CheckInputProps extends TouchableOpacityProps {
   checked?: boolean;
   label?: string;
   clickLabel?: () => void;
   clickedLabel?: string;
+  errorMessage?: string;
+  type?: 'checkbox';
 }
-export default function CheckInput(props: CheckInputProps) {
+export default function CheckInput({
+  checked = false,
+  label,
+  clickLabel,
+  clickedLabel,
+  errorMessage,
+  type = 'checkbox',
+  ...props
+}: CheckInputProps) {
   const colors = useThemeColors();
 
   const RenderLabel = () => {
     let added = false;
-    if (props.clickLabel && props.clickedLabel) {
+    if (clickLabel && clickedLabel) {
       let findIndex = FindLabelByIndex();
-      let words = props.label?.split(' ');
+      let words = label?.split(' ');
       return (
         <Label>
           {words
@@ -45,7 +56,7 @@ export default function CheckInput(props: CheckInputProps) {
                 added = true;
                 return (
                   <TouchableOpacity
-                    onPress={props.clickLabel}
+                    onPress={clickLabel}
                     key={index}
                     style={{backgroundColor: 'transparent'}}>
                     <Label key={index} style={{color: colors.primary}}>
@@ -63,13 +74,13 @@ export default function CheckInput(props: CheckInputProps) {
         </Label>
       );
     }
-    return <Label>{props.label}</Label>;
+    return <Label>{label}</Label>;
   };
 
   const FindLabelByIndex = () => {
     let wordIndexs: number[] = [];
-    props.label?.split(' ').map((item, index) => {
-      if (props.clickedLabel?.includes(item)) {
+    label?.split(' ').map((item, index) => {
+      if (clickedLabel?.includes(item)) {
         wordIndexs.push(index);
       }
     });
@@ -77,8 +88,8 @@ export default function CheckInput(props: CheckInputProps) {
   };
   const ConvertLabelByIndex = () => {
     let newWord = '';
-    props.label?.split(' ').map((item, index) => {
-      if (props.clickedLabel?.includes(item)) {
+    label?.split(' ').map((item, index) => {
+      if (clickedLabel?.includes(item)) {
         if (index === 0) newWord += item;
         else newWord += ' ' + item;
       }
@@ -87,16 +98,28 @@ export default function CheckInput(props: CheckInputProps) {
   };
 
   return (
-    <Container>
-      <InputContainer {...props} activeOpacity={0.7}>
-        {!props.checked ? (
-          <FontAwesomeIcon color={colors.iconColor} size={20} icon={faCheck} />
-        ) : null}
-      </InputContainer>
-      <View style={{marginTop: Platform.OS === 'ios' ? 4 : 0}}>
-        <RenderLabel />
-      </View>
-    </Container>
+    <View>
+      <Container>
+        <InputContainer {...props} activeOpacity={0.7}>
+          {checked ? (
+            <FontAwesomeIcon
+              color={colors.iconColor}
+              size={20}
+              icon={faCheck}
+            />
+          ) : null}
+        </InputContainer>
+        <View
+          style={{marginTop: Platform.OS === 'ios' ? 4 : 0, marginRight: 20}}>
+          <RenderLabel />
+        </View>
+      </Container>
+      {errorMessage && (
+        <CustomText style={{color: colors.error, marginTop: 5}}>
+          {errorMessage}
+        </CustomText>
+      )}
+    </View>
   );
 }
 const InputContainer = styled(TouchableOpacity)`

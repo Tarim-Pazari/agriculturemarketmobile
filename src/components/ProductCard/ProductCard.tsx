@@ -1,39 +1,66 @@
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from 'react-native';
 import React, {memo, useState} from 'react';
 import styled from 'styled-components';
 import CustomText from '../Text/Text';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faBell} from '@fortawesome/free-regular-svg-icons';
 import ProductResponse from '../../payload/response/ProductResponse';
+import {BaseUrl} from '../../store/api/BaseApi';
+import useThemeColors from '../../constant/useColor';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../store';
+import AlertDialog from '../AlertDialog/AlertDialog';
+import DailyPriceResponse from '../../payload/response/DailyPriceResponse';
 
-const ProductCard = (props: {item: ProductResponse}) => {
+interface ProductCardProps extends TouchableOpacityProps {
+  item: DailyPriceResponse;
+}
+const ProductCard = (props: ProductCardProps) => {
+  const {user} = useSelector((state: RootState) => state.auth);
   const {item} = props;
+  const colors = useThemeColors();
   const [selectedReminder, setSelectedReminder] = useState(false);
   return (
-    <CardContainer>
+    <CardContainer activeOpacity={0.7} {...props}>
       <ProductImage
         resizeMode="cover"
-        source={{uri: 'http://192.168.1.140:8080/' + item.icon}}
+        source={{uri: `${BaseUrl}/` + item.product.icon}}
       />
       <ProductContainer>
         <ProductHeader>
-          <ProductName>{item.name}</ProductName>
+          <ProductName>{item.product.name}</ProductName>
           <ProductReminderButton
             hitSlop={10}
             activeOpacity={0.8}
-            onPress={() => setSelectedReminder(!selectedReminder)}
+            onPress={() => {
+              if (user) {
+                setSelectedReminder(!selectedReminder);
+              } else {
+                AlertDialog.showModal({
+                  message:
+                    'Ürün fiyat takibi yapabilmek için giriş yapmanız gerekmektedir.',
+                });
+              }
+            }}
             theme={{
-              selected: selectedReminder,
+              background: selectedReminder ? colors.primary : 'transparent',
+              borderColor: selectedReminder ? colors.primary : colors.primary,
             }}>
             <FontAwesomeIcon
               icon={faBell}
               size={12}
-              color={selectedReminder ? '#FFF' : '#fab421'}
+              color={!selectedReminder ? colors.primary : '#fff'}
             />
           </ProductReminderButton>
         </ProductHeader>
         <ProductInformation>
-          <ProductUnit>{item.unit}</ProductUnit>
+          <ProductUnit>{item.product.unit}</ProductUnit>
           <ProductPrices>
             <ProductMinPrice>
               {new Intl.NumberFormat('tr-TR', {
@@ -55,7 +82,7 @@ const ProductCard = (props: {item: ProductResponse}) => {
 };
 
 export default memo(ProductCard);
-const CardContainer = styled(View)`
+const CardContainer = styled(TouchableOpacity)`
   flex-direction: row;
   border-width: 1px;
   border-color: #ddd;
@@ -111,10 +138,10 @@ const ProductMaxPrice = styled(CustomText)`
 const ProductReminderButton = styled(TouchableOpacity)`
   height: 20px;
   width: 20px;
-  background-color: ${props => (props.theme.selected ? '#fab421' : '#FFF')};
+  background-color: ${props => props.theme.background};
   justify-content: center;
   align-items: center;
   border-radius: 15px;
   border-width: 1px;
-  border-color: #fab421;
+  border-color: ${props => props.theme.borderColor};
 `;
