@@ -60,9 +60,7 @@ export default function useCurrentPositionHook() {
           })
           .finally(() => setLoading(false));
       },
-      error => {
-        console.log('a');
-      },
+      error => {},
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
     );
   };

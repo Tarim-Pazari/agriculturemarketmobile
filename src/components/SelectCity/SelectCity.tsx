@@ -40,8 +40,6 @@ export default function SelectCity() {
       );
     }
   };
-  console.log('cities', location);
-
   return (
     <>
       <LanguageButton

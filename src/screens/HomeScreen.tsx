@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Platform,
+  Dimensions,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {CalendarProvider, WeekCalendar} from 'react-native-calendars';
@@ -133,8 +134,8 @@ export default function HomeScreen(
           />
         </View>
       </SafeAreaView>
-      <View style={{flex: 1, marginBottom: 60}}>
-        <SelectCity />
+      <SelectCity />
+      <View style={{flex: 1, marginBottom: 90}}>
         <View
           style={
             loading
