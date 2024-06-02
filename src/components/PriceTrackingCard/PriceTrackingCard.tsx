@@ -17,89 +17,32 @@ import {useSelector} from 'react-redux';
 import {RootState} from '../../store';
 import AlertDialog from '../AlertDialog/AlertDialog';
 import DailyPriceResponse from '../../payload/response/DailyPriceResponse';
-import {
-  useDeletePriceTrackingMutation,
-  useTrackPriceMutation,
-} from '../../services/priceTrackingService';
+import {useTrackPriceMutation} from '../../services/priceTrackingService';
 import PriceTrackingResponse from '../../payload/response/PriceTrackingResponse';
 
-interface ProductCardProps extends TouchableOpacityProps {
-  item: DailyPriceResponse;
+interface PriceTrackingCardProps extends TouchableOpacityProps {
+  item: PriceTrackingResponse;
 }
-const ProductCard = (props: ProductCardProps) => {
+const PriceTrackingCard = (props: PriceTrackingCardProps) => {
   const {user} = useSelector((state: RootState) => state.auth);
   const {firebaseToken} = useSelector((state: RootState) => state.app);
   const {item} = props;
   const colors = useThemeColors();
-  const [selectedReminder, setSelectedReminder] = useState(
-    item.isTracking || false,
-  );
-  const [usePriceTracking] = useTrackPriceMutation();
-  const [useDeletePriceTracking] = useDeletePriceTrackingMutation();
-
-  const handleReminder = () => {
-    usePriceTracking({
-      productId: item.productId,
-      fcmToken: firebaseToken as string,
-      dailyPriceId: item.id,
-    })
-      .unwrap()
-      .then(res => {
-        if (res.isSuccess) {
-          setSelectedReminder(true);
-          AlertDialog.showModal({
-            message: 'Fiyat hatırlatma başarıyla eklendi.',
-          });
-        } else {
-          AlertDialog.showModal({
-            message: res.exceptionMessage,
-          });
-        }
-      })
-      .catch(er => {
-        if (er?.data?.message) {
-          AlertDialog.showModal({
-            message: er?.data?.message,
-          });
-        }
-      });
-  };
+  const [selectedReminder, setSelectedReminder] = useState(true);
 
   return (
     <CardContainer activeOpacity={0.7} {...props}>
       <ProductImage
         resizeMode="cover"
-        source={{uri: `${BaseUrl}/` + item.icon}}
+        source={{uri: `${BaseUrl}/` + item.product.icon}}
       />
       <ProductContainer>
         <ProductHeader>
-          <ProductName>{item.name}</ProductName>
+          <ProductName>{item.product.name}</ProductName>
           <ProductReminderButton
             hitSlop={10}
             activeOpacity={0.8}
-            onPress={() => {
-              if (selectedReminder) {
-                useDeletePriceTracking(item.priceTrackingId)
-                  .unwrap()
-                  .then(res => {
-                    if (res.isSuccess) {
-                      setSelectedReminder(false);
-                      AlertDialog.showModal({
-                        message: 'Fiyat hatırlatma başarıyla silindi.',
-                      });
-                    }
-                  })
-                  .catch(er => {
-                    console.log(er);
-                  });
-              } else {
-                if (user) {
-                  setSelectedReminder(!selectedReminder);
-                } else {
-                  handleReminder();
-                }
-              }
-            }}
+            onPress={() => {}}
             theme={{
               background: selectedReminder ? colors.primary : 'transparent',
               borderColor: selectedReminder ? colors.primary : colors.primary,
@@ -112,7 +55,7 @@ const ProductCard = (props: ProductCardProps) => {
           </ProductReminderButton>
         </ProductHeader>
         <ProductInformation>
-          <ProductUnit>{item.unit}</ProductUnit>
+          <ProductUnit>{item.product.unit}</ProductUnit>
           <ProductPrices>
             <ProductMinPrice>
               {new Intl.NumberFormat('tr-TR', {
@@ -133,7 +76,7 @@ const ProductCard = (props: ProductCardProps) => {
   );
 };
 
-export default memo(ProductCard);
+export default memo(PriceTrackingCard);
 const CardContainer = styled(TouchableOpacity)`
   flex-direction: row;
   border-width: 1px;
@@ -143,7 +86,6 @@ const CardContainer = styled(TouchableOpacity)`
   border-radius: 5px;
   align-items: center;
   gap: 10px;
-  margin-horizontal: 10px;
   box-shadow: 3px 3px 3px #ddd;
   background-color: #fff;
 `;

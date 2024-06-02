@@ -1,6 +1,6 @@
 import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {BottomTabParamList} from '../types/navigator';
+import {BottomTabParamList, RootStackParamList} from '../types/navigator';
 import Container from '../components/Container/Container';
 import MedicineSvg from '../assets/MedicineSvg';
 import SeedlingSvg from '../assets/SeedlingSvg';
@@ -18,7 +18,7 @@ import {AuthActions} from '../store/features/authReducer';
 import AlertDialog from '../components/AlertDialog/AlertDialog';
 
 export default function MenuScreen(
-  props: NativeStackScreenProps<BottomTabParamList, 'Menu'>,
+  props: NativeStackScreenProps<RootStackParamList>,
 ) {
   const dispatch: AppDispatch = useDispatch();
   const {user} = useSelector((state: RootState) => state.auth);
@@ -36,7 +36,14 @@ export default function MenuScreen(
         leftIcon={<OrderSvg />}
         name="Satışlarım"
       />
-      <Col svg leftIcon={<FollowTrackingListSvg />} name="Fiyat Takip Listem" />
+      <Col
+        onPress={() => {
+          props.navigation.navigate('PriceTrackingScreen');
+        }}
+        svg
+        leftIcon={<FollowTrackingListSvg />}
+        name="Fiyat Takip Listem"
+      />
       <Col svg leftIcon={<CommissionSvg />} name="Komisyoncular" />
       <Col svg leftIcon={<MedicineSvg />} name="Zirai İlaçlar" />
       <Col svg leftIcon={<SeedlingSvg />} name="Fideler" />

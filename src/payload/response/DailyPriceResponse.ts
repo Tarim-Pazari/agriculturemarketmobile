@@ -2,11 +2,18 @@ import ProductResponse from './ProductResponse';
 
 interface DailyPriceResponse {
   id: number;
-  date: string;
+  createdAt: Date;
   cityName: string;
-  minPrice: number;
+  date: string;
   maxPrice: number;
+  minPrice: number;
   priceStatus: number;
-  product: ProductResponse;
+  productId: number;
+  name: string;
+  icon: string;
+  unit: string;
+  districtName: string;
+  isTracking: boolean;
+  priceTrackingId: number;
 }
 export default DailyPriceResponse;

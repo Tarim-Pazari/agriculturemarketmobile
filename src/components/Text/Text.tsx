@@ -21,7 +21,7 @@ export default function CustomText(props: CustomTextProps) {
         props.sx,
         {
           textAlign: props.center ? 'center' : props.left ? 'left' : 'left',
-          color: props.color ? COLORS[props.color] : colors.text,
+          color: props.color ? COLORS[props.color] : colors.primary,
           fontSize: props.fontSizes
             ? FONTSIZES[props.fontSizes]
             : FONTSIZES.default,

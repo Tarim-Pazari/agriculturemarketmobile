@@ -1,7 +1,5 @@
 import {
   View,
-  Image,
-  FlatList,
   SafeAreaView,
   ActivityIndicator,
   TouchableOpacity,
@@ -11,29 +9,37 @@ import React, {useEffect, useState} from 'react';
 import {CalendarProvider, WeekCalendar} from 'react-native-calendars';
 import dayjs from 'dayjs';
 import Input from '../components/Input/Input';
-import {faMapMarkerAlt, faSearch} from '@fortawesome/free-solid-svg-icons';
+import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import ProductCard from '../components/ProductCard/ProductCard';
-import CurrentPositionHook from '../hooks/CurrentPositionHook';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import styled from 'styled-components';
-import CustomText from '../components/Text/Text';
+import useCurrentPositionHook from '../hooks/useCurrentPositionHook';
+
 import AlertDialog from '../components/AlertDialog/AlertDialog';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../types/navigator';
-import {useGetDailyPriceMutation} from '../services/dailyPriceService';
+import {
+  useGetDailyPriceByIdsMutation,
+  useGetDailyPriceMutation,
+} from '../services/dailyPriceService';
 import DailyPriceResponse from '../payload/response/DailyPriceResponse';
 import DailyPriceRequest from '../payload/request/DailyPriceRequest';
+import {useSelector} from 'react-redux';
+import {RootState} from '../store';
+import CustomFlatList from '../components/Flatlist/CustomFlatList';
+
+import SelectCity from '../components/SelectCity/SelectCity';
 
 export default function HomeScreen(
   props: NativeStackScreenProps<RootStackParamList>,
 ) {
+  const {firebaseToken} = useSelector((state: RootState) => state.app);
   const [selectedDay, setSelectedDay] = useState(dayjs().format('YYYY-MM-DD'));
   const [items, setItems] = useState<Array<DailyPriceResponse>>([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
-  const {cityName, districtName, positionLoading, getFullAddress} =
-    CurrentPositionHook();
+  const {cityName, districtName, positionLoading, userSelection} =
+    useCurrentPositionHook();
   const [useGetDailyPrice] = useGetDailyPriceMutation();
+  const [useGetDailyPriceByIds] = useGetDailyPriceByIdsMutation();
   useEffect(() => {
     if (!positionLoading) {
       loadData();
@@ -42,17 +48,16 @@ export default function HomeScreen(
 
   const loadData = async () => {
     setLoading(true);
-    if (cityName && selectedDay) {
-      let fixedDate = dayjs(selectedDay).format('YYYYMMDD');
-      let entity: DailyPriceRequest = {
-        date: fixedDate,
-        cityName: cityName,
-        districtName: districtName,
+
+    if (userSelection?.city && userSelection?.district) {
+      let entity: DailyPriceByIdRequest = {
+        date: selectedDay,
+        cityId: userSelection.city.id,
+        districtId: userSelection.district.id,
       };
-      useGetDailyPrice(entity)
+      useGetDailyPriceByIds(entity)
         .unwrap()
         .then(response => {
-          console.log(response, 'response');
           if (response?.list?.length !== 0) {
             setItems(response.list);
           } else {
@@ -64,6 +69,30 @@ export default function HomeScreen(
         })
         .catch(error => console.error(error, 'hata'))
         .finally(() => setLoading(false));
+    } else {
+      if (cityName && selectedDay) {
+        let fixedDate = dayjs(selectedDay).format('YYYYMMDD');
+        let entity: DailyPriceRequest = {
+          date: fixedDate,
+          cityName: cityName,
+          districtName: districtName as string,
+          fcmToken: firebaseToken as string,
+        };
+        useGetDailyPrice(entity)
+          .unwrap()
+          .then(response => {
+            if (response?.list?.length !== 0) {
+              setItems(response.list);
+            } else {
+              AlertDialog.showModal({
+                title: 'Uyarı',
+                message: response?.message || response.exceptionMessage,
+              });
+            }
+          })
+          .catch(error => console.error(error, 'hata'))
+          .finally(() => setLoading(false));
+      }
     }
   };
 
@@ -71,7 +100,7 @@ export default function HomeScreen(
     <View style={{flex: 1}}>
       <SafeAreaView
         style={{
-          flex: Platform.OS === 'ios' ? 0.22 : 0.25,
+          height: 180,
           backgroundColor: '#1E8604',
         }}>
         <CalendarProvider date={selectedDay}>
@@ -104,18 +133,8 @@ export default function HomeScreen(
           />
         </View>
       </SafeAreaView>
-
       <View style={{flex: 1, marginBottom: 60}}>
-        {!positionLoading && (
-          <LanguageButton activeOpacity={0.8} onPress={() => {}}>
-            <View style={{flexDirection: 'row', gap: 10}}>
-              <FontAwesomeIcon icon={faMapMarkerAlt} color="blue" />
-              <CustomText color="primary">{getFullAddress()}</CustomText>
-            </View>
-            <CustomText color="grey">Değiştir</CustomText>
-          </LanguageButton>
-        )}
-
+        <SelectCity />
         <View
           style={
             loading
@@ -125,22 +144,24 @@ export default function HomeScreen(
           {loading ? (
             <ActivityIndicator size="large" color="#0000ff" />
           ) : (
-            <FlatList
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              renderItem={({item}) => (
+            <CustomFlatList
+              renderItem={(item, index) => (
                 <ProductCard
                   onPress={() => {
                     props.navigation.navigate('ProductScreen', {
-                      product: item.product,
+                      product: {
+                        id: item.productId,
+                        name: item.name,
+                        icon: item.icon,
+                        unit: item.unit,
+                      },
                     });
                   }}
                   item={item}
                 />
               )}
-              keyExtractor={item => item.id.toString()}
               data={items?.filter?.(item => {
-                return item?.product?.name
+                return item?.name
                   ?.toLowerCase?.()
                   .includes(search.toLowerCase());
               })}
@@ -151,15 +172,3 @@ export default function HomeScreen(
     </View>
   );
 }
-const LanguageButton = styled(TouchableOpacity)`
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-  margin-horizontal: 10px;
-  margin-top: 10px;
-  margin-bottom: 7px;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: #fff;
-  justify-content: space-between;
-`;

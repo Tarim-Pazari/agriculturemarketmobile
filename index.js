@@ -8,8 +8,11 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistor, store} from './src/store';
 import 'react-native-gesture-handler';
-import React from 'react';
+import './src/lang/i18n';
+import React, {useEffect} from 'react';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 LogBox.ignoreAllLogs();
+
 LocaleConfig.locales['tr'] = {
   monthNames: [
     'Ocak',
@@ -55,16 +58,14 @@ LocaleConfig.defaultLocale = 'tr';
 
 const AgricultureMarket = () => {
   return (
-    <React.StrictMode>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <NavigationContainer>
-            <RootNavigator />
-          </NavigationContainer>
-        </PersistGate>
-        <ModalPortal />
-      </Provider>
-    </React.StrictMode>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+      </PersistGate>
+      <ModalPortal />
+    </Provider>
   );
 };
 

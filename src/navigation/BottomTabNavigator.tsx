@@ -29,6 +29,8 @@ export default function BottomTabNavigator(
         tabBarStyle: {
           borderTopWidth: 0,
           borderTopColor: '#fff',
+
+          position: 'absolute',
         },
         tabBarActiveTintColor: iconColor,
         tabBarInactiveTintColor: inActiveIconColor,

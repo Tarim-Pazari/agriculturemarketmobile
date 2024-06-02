@@ -38,6 +38,7 @@ target 'agriculturemarket' do
   pod 'FirebaseCoreInternal', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
+  pod 'FirebaseMessaging', :modular_headers => true
 
   use_react_native!(
     :path => config[:reactNativePath],

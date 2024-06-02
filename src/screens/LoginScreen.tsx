@@ -12,16 +12,14 @@ import {RootStackParamList} from '../types/navigator';
 import FacebookSvg from '../assets/FacebookSvg';
 import AppleSvg from '../assets/AppleSvg';
 import GoogleSvg from '../assets/GoogleSvg';
-import FormContainer, {
-  FormContainerRef,
-} from '../components/FormContainer/FormContainer';
+
 import {useLoginMutation} from '../services/authService';
 import LoginRequest from '../payload/request/LoginRequest';
 import {useDispatch} from 'react-redux';
 import {AppDispatch} from '../store';
 import {AuthActions} from '../store/features/authReducer';
 import AlertDialog from '../components/AlertDialog/AlertDialog';
-
+import FormContainer, {FormContainerRef} from 'react-native-form-container';
 export default function LoginScreen(
   props: NativeStackScreenProps<RootStackParamList, 'LoginScreen'>,
 ) {
@@ -34,7 +32,6 @@ export default function LoginScreen(
   const ref = React.useRef<FormContainerRef>(null);
 
   const handleLogin = () => {
-    ref.current?.setErrorDataFiels({});
     useLogin(loginRequest)
       .unwrap()
       .then(res => {
@@ -44,33 +41,32 @@ export default function LoginScreen(
         }
       })
       .catch(er => {
-        console.log(er);
         if (er?.data?.message) {
           AlertDialog.showModal({
             message: er?.data?.message,
           });
         }
-
-        ref.current?.setErrorDataFiels(er.data);
+        ref.current?.validate(er.data);
       });
   };
+
   return (
     <Container header title="Giriş Yap" goBackShow>
       <Form>
-        <FormContainer formContainerRef={ref}>
+        <FormContainer style={{gap: 10}} formContainerRef={ref}>
           <Input
             autoCapitalize="none"
-            type="text"
             id="email"
             value={loginRequest.email}
             onChangeText={text =>
               setLoginRequest({...loginRequest, email: text})
             }
+            required
             icon={faEnvelope}
             placeholder="E-posta"
           />
           <Input
-            type="text"
+            required
             id="password"
             icon={faLock}
             placeholder="Şifre"

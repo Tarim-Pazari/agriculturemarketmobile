@@ -8,7 +8,7 @@ import {AuthReducer} from './features/authReducer';
 const appPersistConfig = {
   key: 'app',
   storage: AsyncStorage,
-  whitelist: ['firebaseToken'],
+  whitelist: ['firebaseToken', 'location'],
 };
 const authPersistConfig = {
   key: 'auth',

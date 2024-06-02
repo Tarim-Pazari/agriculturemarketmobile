@@ -12,7 +12,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import CustomText from '../Text/Text';
-const ButtonWidth = Dimensions.get('window').width / 4 - 10;
+
 interface ButtonGroupProps<T> {
   buttons?: T[];
   onPress?: (index: number, selectedValue: T) => void;
@@ -29,7 +29,8 @@ export default function ButtonGroup<T>(props: ButtonGroupProps<T>) {
       onPress && onPress(index, buttons[index]);
     }
   };
-
+  const ButtonWidth =
+    Dimensions.get('window').width / Number(buttons?.length || 1) - 10;
   const animatedBackgroundStyle = useAnimatedStyle(() => {
     return {
       transform: [
@@ -46,9 +47,16 @@ export default function ButtonGroup<T>(props: ButtonGroupProps<T>) {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.buttonContainer}>
+      <View
+        style={{
+          ...styles.buttonContainer,
+          width: ButtonWidth * buttons.length,
+        }}>
         <Animated.View
-          style={[styles.animatedBackground, animatedBackgroundStyle]}
+          style={[
+            {...styles.animatedBackground, width: ButtonWidth},
+            animatedBackgroundStyle,
+          ]}
         />
         {buttons?.map((title, index) => (
           <TouchableOpacity
@@ -75,7 +83,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     position: 'relative',
-    width: ButtonWidth * 4,
     height: 50,
     borderRadius: 25,
     overflow: 'hidden',
@@ -85,7 +92,6 @@ const styles = StyleSheet.create({
   },
   animatedBackground: {
     position: 'absolute',
-    width: ButtonWidth,
     height: '100%',
     backgroundColor: '#1F8505',
     borderRadius: 25,

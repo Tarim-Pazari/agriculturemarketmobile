@@ -23,6 +23,7 @@ interface InputProps extends TextInputProps {
   enableFocusBorder?: boolean;
   errorMessage?: string;
   type?: 'checkbox' | 'radio' | 'text' | 'password' | 'email' | 'number';
+  required?: boolean;
 }
 export default function Input({
   iconPosition = 'left',
@@ -32,6 +33,7 @@ export default function Input({
   enableFocusBorder = true,
   errorMessage,
   type = 'text',
+  required = false,
   ...props
 }: InputProps) {
   const colors = useThemeColors();

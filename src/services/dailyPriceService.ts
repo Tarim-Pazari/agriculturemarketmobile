@@ -15,6 +15,17 @@ export const dailyApi = baseApi.injectEndpoints({
         body: entity,
       }),
     }),
+    getDailyPriceByIds: builder.mutation<
+      ServiceResponse<DailyPriceResponse>,
+      DailyPriceByIdRequest
+    >({
+      query: entity => ({
+        url: '/api/v1/dailyPrice',
+        method: 'POST',
+        body: entity,
+      }),
+    }),
   }),
 });
-export const {useGetDailyPriceMutation} = dailyApi;
+export const {useGetDailyPriceMutation, useGetDailyPriceByIdsMutation} =
+  dailyApi;

@@ -5,6 +5,7 @@ export type RootStackParamList = {
   LoginScreen: undefined;
   RegisterScreen: undefined;
   ProductScreen: {product: ProductResponse};
+  PriceTrackingScreen: undefined;
 };
 
 export type BottomTabParamList = {

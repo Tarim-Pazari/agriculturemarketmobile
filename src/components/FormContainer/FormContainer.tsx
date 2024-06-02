@@ -4,6 +4,7 @@ import React, {
   useCallback,
   ReactNode,
   MutableRefObject,
+  memo,
 } from 'react';
 import {View} from 'react-native';
 
@@ -35,6 +36,11 @@ const FormContainer = (props: FormContainerProps) => {
         },
       };
     }
+    return () => {
+      if (formContainerRef) {
+        formContainerRef.current = null;
+      }
+    };
   }, [formContainerRef, checkValidation]);
 
   useEffect(() => {
@@ -71,4 +77,4 @@ const FormContainer = (props: FormContainerProps) => {
   return <View style={{flexDirection: 'column', gap}}>{children}</View>;
 };
 
-export default FormContainer;
+export default memo(FormContainer);

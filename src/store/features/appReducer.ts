@@ -1,7 +1,14 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {AppLocation} from '../../types/type';
 
-const INITIAL_STATE = {
+export interface AppState {
+  firebaseToken: string | null;
+  location: AppLocation | null;
+}
+
+const INITIAL_STATE: AppState = {
   firebaseToken: null,
+  location: null,
 };
 
 const appSlice = createSlice({
@@ -10,6 +17,21 @@ const appSlice = createSlice({
   reducers: {
     setFirebaseToken(state, action) {
       state.firebaseToken = action.payload;
+    },
+    setLocation(state, action) {
+      state.location = action.payload;
+    },
+    setUserLocation(state, action) {
+      state.location =
+        state.location === null
+          ? action.payload
+          : {
+              ...state.location,
+              userSelection: {
+                ...state.location.userSelection,
+                ...action.payload,
+              },
+            };
     },
   },
 });
