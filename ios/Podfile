@@ -32,7 +32,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'agriculturemarket' do
+target 'tarimpazari' do
   config = use_native_modules!
   pod 'Firebase', :modular_headers => true
   pod 'FirebaseCoreInternal', :modular_headers => true
@@ -46,7 +46,7 @@ target 'agriculturemarket' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'agriculturemarketTests' do
+  target 'tarimpazariTests' do
     inherit! :complete
     # Pods for testing
   end

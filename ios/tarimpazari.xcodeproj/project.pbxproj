@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* agriculturemarketTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* agriculturemarketTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-agriculturemarket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-agriculturemarket.a */; };
+		00E356F31AD99517003FC87E /* tarimpazariTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* tarimpazariTests.m */; };
+		0C80B921A6F3F58F76C31292 /* libPods-tarimpazari.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-tarimpazari.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		305D72E0ED8E6FEEA58303B6 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 274A97BA32A46B3B4010EA9E /* PrivacyInfo.xcprivacy */; };
 		6720CB1E2C09202E000AD340 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6720CB1D2C09202E000AD340 /* GoogleService-Info.plist */; };
-		7699B88040F8A987B510C191 /* libPods-agriculturemarket-agriculturemarketTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-agriculturemarket-agriculturemarketTests.a */; };
+		7699B88040F8A987B510C191 /* libPods-tarimpazari-tarimpazariTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-tarimpazari-tarimpazariTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -24,31 +24,31 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = agriculturemarket;
+			remoteInfo = tarimpazari;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* agriculturemarketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = agriculturemarketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* tarimpazariTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tarimpazariTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* agriculturemarketTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = agriculturemarketTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* agriculturemarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = agriculturemarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = agriculturemarket/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = agriculturemarket/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = agriculturemarket/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = agriculturemarket/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = agriculturemarket/main.m; sourceTree = "<group>"; };
-		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = agriculturemarket/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-agriculturemarket-agriculturemarketTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-agriculturemarket-agriculturemarketTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		274A97BA32A46B3B4010EA9E /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = agriculturemarket/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		3B4392A12AC88292D35C810B /* Pods-agriculturemarket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-agriculturemarket.debug.xcconfig"; path = "Target Support Files/Pods-agriculturemarket/Pods-agriculturemarket.debug.xcconfig"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-agriculturemarket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-agriculturemarket.release.xcconfig"; path = "Target Support Files/Pods-agriculturemarket/Pods-agriculturemarket.release.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-agriculturemarket-agriculturemarketTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-agriculturemarket-agriculturemarketTests.debug.xcconfig"; path = "Target Support Files/Pods-agriculturemarket-agriculturemarketTests/Pods-agriculturemarket-agriculturemarketTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-agriculturemarket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-agriculturemarket.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356F21AD99517003FC87E /* tarimpazariTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tarimpazariTests.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* tarimpazari.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tarimpazari.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = tarimpazari/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = tarimpazari/AppDelegate.mm; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = tarimpazari/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = tarimpazari/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = tarimpazari/main.m; sourceTree = "<group>"; };
+		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = tarimpazari/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		19F6CBCC0A4E27FBF8BF4A61 /* libPods-tarimpazari-tarimpazariTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tarimpazari-tarimpazariTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		274A97BA32A46B3B4010EA9E /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = tarimpazari/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		3B4392A12AC88292D35C810B /* Pods-tarimpazari.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tarimpazari.debug.xcconfig"; path = "Target Support Files/Pods-tarimpazari/Pods-tarimpazari.debug.xcconfig"; sourceTree = "<group>"; };
+		5709B34CF0A7D63546082F79 /* Pods-tarimpazari.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tarimpazari.release.xcconfig"; path = "Target Support Files/Pods-tarimpazari/Pods-tarimpazari.release.xcconfig"; sourceTree = "<group>"; };
+		5B7EB9410499542E8C5724F5 /* Pods-tarimpazari-tarimpazariTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tarimpazari-tarimpazariTests.debug.xcconfig"; path = "Target Support Files/Pods-tarimpazari-tarimpazariTests/Pods-tarimpazari-tarimpazariTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5DCACB8F33CDC322A6C60F78 /* libPods-tarimpazari.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tarimpazari.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6720CB1D2C09202E000AD340 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		6748AAB42C0B9FAC00F12711 /* agriculturemarket.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = agriculturemarket.entitlements; path = agriculturemarket/agriculturemarket.entitlements; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = agriculturemarket/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-agriculturemarket-agriculturemarketTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-agriculturemarket-agriculturemarketTests.release.xcconfig"; path = "Target Support Files/Pods-agriculturemarket-agriculturemarketTests/Pods-agriculturemarket-agriculturemarketTests.release.xcconfig"; sourceTree = "<group>"; };
+		6748AAB42C0B9FAC00F12711 /* tarimpazari.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = tarimpazari.entitlements; path = tarimpazari/tarimpazari.entitlements; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = tarimpazari/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		89C6BE57DB24E9ADA2F236DE /* Pods-tarimpazari-tarimpazariTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tarimpazari-tarimpazariTests.release.xcconfig"; path = "Target Support Files/Pods-tarimpazari-tarimpazariTests/Pods-tarimpazari-tarimpazariTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -57,7 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-agriculturemarket-agriculturemarketTests.a in Frameworks */,
+				7699B88040F8A987B510C191 /* libPods-tarimpazari-tarimpazariTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,20 +65,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-agriculturemarket.a in Frameworks */,
+				0C80B921A6F3F58F76C31292 /* libPods-tarimpazari.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* agriculturemarketTests */ = {
+		00E356EF1AD99517003FC87E /* tarimpazariTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* agriculturemarketTests.m */,
+				00E356F21AD99517003FC87E /* tarimpazariTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = agriculturemarketTests;
+			path = tarimpazariTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -89,10 +89,10 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* agriculturemarket */ = {
+		13B07FAE1A68108700A75B9A /* tarimpazari */ = {
 			isa = PBXGroup;
 			children = (
-				6748AAB42C0B9FAC00F12711 /* agriculturemarket.entitlements */,
+				6748AAB42C0B9FAC00F12711 /* tarimpazari.entitlements */,
 				6720CB1D2C09202E000AD340 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -103,15 +103,15 @@
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
 				274A97BA32A46B3B4010EA9E /* PrivacyInfo.xcprivacy */,
 			);
-			name = agriculturemarket;
+			name = tarimpazari;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-agriculturemarket.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-agriculturemarket-agriculturemarketTests.a */,
+				5DCACB8F33CDC322A6C60F78 /* libPods-tarimpazari.a */,
+				19F6CBCC0A4E27FBF8BF4A61 /* libPods-tarimpazari-tarimpazariTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -126,9 +126,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* agriculturemarket */,
+				13B07FAE1A68108700A75B9A /* tarimpazari */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* agriculturemarketTests */,
+				00E356EF1AD99517003FC87E /* tarimpazariTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -141,8 +141,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* agriculturemarket.app */,
-				00E356EE1AD99517003FC87E /* agriculturemarketTests.xctest */,
+				13B07F961A680F5B00A75B9A /* tarimpazari.app */,
+				00E356EE1AD99517003FC87E /* tarimpazariTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -150,10 +150,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-agriculturemarket.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-agriculturemarket.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-agriculturemarket-agriculturemarketTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-agriculturemarket-agriculturemarketTests.release.xcconfig */,
+				3B4392A12AC88292D35C810B /* Pods-tarimpazari.debug.xcconfig */,
+				5709B34CF0A7D63546082F79 /* Pods-tarimpazari.release.xcconfig */,
+				5B7EB9410499542E8C5724F5 /* Pods-tarimpazari-tarimpazariTests.debug.xcconfig */,
+				89C6BE57DB24E9ADA2F236DE /* Pods-tarimpazari-tarimpazariTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -161,9 +161,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* agriculturemarketTests */ = {
+		00E356ED1AD99517003FC87E /* tarimpazariTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "agriculturemarketTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "tarimpazariTests" */;
 			buildPhases = (
 				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -177,14 +177,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = agriculturemarketTests;
-			productName = agriculturemarketTests;
-			productReference = 00E356EE1AD99517003FC87E /* agriculturemarketTests.xctest */;
+			name = tarimpazariTests;
+			productName = tarimpazariTests;
+			productReference = 00E356EE1AD99517003FC87E /* tarimpazariTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* agriculturemarket */ = {
+		13B07F861A680F5B00A75B9A /* tarimpazari */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "agriculturemarket" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "tarimpazari" */;
 			buildPhases = (
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
@@ -199,9 +199,9 @@
 			);
 			dependencies = (
 			);
-			name = agriculturemarket;
-			productName = agriculturemarket;
-			productReference = 13B07F961A680F5B00A75B9A /* agriculturemarket.app */;
+			name = tarimpazari;
+			productName = tarimpazari;
+			productReference = 13B07F961A680F5B00A75B9A /* tarimpazari.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -221,7 +221,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "agriculturemarket" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "tarimpazari" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -234,8 +234,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* agriculturemarket */,
-				00E356ED1AD99517003FC87E /* agriculturemarketTests */,
+				13B07F861A680F5B00A75B9A /* tarimpazari */,
+				00E356ED1AD99517003FC87E /* tarimpazariTests */,
 			);
 		};
 /* End PBXProject section */
@@ -284,15 +284,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-agriculturemarket/Pods-agriculturemarket-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-tarimpazari/Pods-tarimpazari-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-agriculturemarket/Pods-agriculturemarket-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-tarimpazari/Pods-tarimpazari-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-agriculturemarket/Pods-agriculturemarket-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tarimpazari/Pods-tarimpazari-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		711779F9FF2CB56F88FBEFAA /* [CP-User] [RNFB] Core Configuration */ = {
@@ -323,7 +323,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-agriculturemarket-agriculturemarketTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-tarimpazari-tarimpazariTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -345,7 +345,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-agriculturemarket-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-tarimpazari-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -358,15 +358,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-agriculturemarket-agriculturemarketTests/Pods-agriculturemarket-agriculturemarketTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-tarimpazari-tarimpazariTests/Pods-tarimpazari-tarimpazariTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-agriculturemarket-agriculturemarketTests/Pods-agriculturemarket-agriculturemarketTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-tarimpazari-tarimpazariTests/Pods-tarimpazari-tarimpazariTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-agriculturemarket-agriculturemarketTests/Pods-agriculturemarket-agriculturemarketTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tarimpazari-tarimpazariTests/Pods-tarimpazari-tarimpazariTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
@@ -375,15 +375,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-agriculturemarket/Pods-agriculturemarket-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-tarimpazari/Pods-tarimpazari-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-agriculturemarket/Pods-agriculturemarket-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-tarimpazari/Pods-tarimpazari-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-agriculturemarket/Pods-agriculturemarket-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tarimpazari/Pods-tarimpazari-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
@@ -392,15 +392,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-agriculturemarket-agriculturemarketTests/Pods-agriculturemarket-agriculturemarketTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-tarimpazari-tarimpazariTests/Pods-tarimpazari-tarimpazariTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-agriculturemarket-agriculturemarketTests/Pods-agriculturemarket-agriculturemarketTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-tarimpazari-tarimpazariTests/Pods-tarimpazari-tarimpazariTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-agriculturemarket-agriculturemarketTests/Pods-agriculturemarket-agriculturemarketTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-tarimpazari-tarimpazariTests/Pods-tarimpazari-tarimpazariTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -410,7 +410,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* agriculturemarketTests.m in Sources */,
+				00E356F31AD99517003FC87E /* tarimpazariTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,7 +428,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* agriculturemarket */;
+			target = 13B07F861A680F5B00A75B9A /* tarimpazari */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -436,14 +436,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-agriculturemarket-agriculturemarketTests.debug.xcconfig */;
+			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-tarimpazari-tarimpazariTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = agriculturemarketTests/Info.plist;
+				INFOPLIST_FILE = tarimpazariTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -457,17 +457,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/agriculturemarket.app/agriculturemarket";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/tarimpazari.app/tarimpazari";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-agriculturemarket-agriculturemarketTests.release.xcconfig */;
+			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-tarimpazari-tarimpazariTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = agriculturemarketTests/Info.plist;
+				INFOPLIST_FILE = tarimpazariTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -481,21 +481,21 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/agriculturemarket.app/agriculturemarket";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/tarimpazari.app/tarimpazari";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-agriculturemarket.debug.xcconfig */;
+			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-tarimpazari.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = agriculturemarket/agriculturemarket.entitlements;
+				CODE_SIGN_ENTITLEMENTS = tarimpazari/tarimpazari.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 49WJ53SG92;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = agriculturemarket/Info.plist;
+				INFOPLIST_FILE = tarimpazari/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Tarım Pazarı";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -507,8 +507,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.agriculturemarket;
-				PRODUCT_NAME = agriculturemarket;
+				PRODUCT_BUNDLE_IDENTIFIER = org.tarimpazari;
+				PRODUCT_NAME = tarimpazari;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -517,14 +517,14 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-agriculturemarket.release.xcconfig */;
+			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-tarimpazari.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = agriculturemarket/agriculturemarket.entitlements;
+				CODE_SIGN_ENTITLEMENTS = tarimpazari/tarimpazari.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 49WJ53SG92;
-				INFOPLIST_FILE = agriculturemarket/Info.plist;
+				INFOPLIST_FILE = tarimpazari/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Tarım Pazarı";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -536,8 +536,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.agriculturemarket;
-				PRODUCT_NAME = agriculturemarket;
+				PRODUCT_BUNDLE_IDENTIFIER = org.tarimpazari;
+				PRODUCT_NAME = tarimpazari;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -705,7 +705,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "agriculturemarketTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "tarimpazariTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -714,7 +714,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "agriculturemarket" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "tarimpazari" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -723,7 +723,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "agriculturemarket" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "tarimpazari" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

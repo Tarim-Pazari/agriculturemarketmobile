@@ -56,7 +56,7 @@ LocaleConfig.locales['tr'] = {
 };
 LocaleConfig.defaultLocale = 'tr';
 
-const AgricultureMarket = () => {
+const TarimPazari = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
@@ -69,4 +69,4 @@ const AgricultureMarket = () => {
   );
 };
 
-AppRegistry.registerComponent(appName, () => AgricultureMarket);
+AppRegistry.registerComponent(appName, () => TarimPazari);
