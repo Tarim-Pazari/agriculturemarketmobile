@@ -10,5 +10,5 @@ export default function UserScreen() {
   useEffect(() => {
     dispatch(AuthActions.logout());
   }, []);
-  return <Container header title="Kullanıcı Bilgilerim"></Container>;
+  return <Container header title="Profilim"></Container>;
 }

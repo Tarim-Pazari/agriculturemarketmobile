@@ -20,7 +20,7 @@ export const dailyApi = baseApi.injectEndpoints({
       DailyPriceByIdRequest
     >({
       query: entity => ({
-        url: '/api/v1/dailyPrice',
+        url: '/api/v1/daily-price',
         method: 'POST',
         body: entity,
       }),

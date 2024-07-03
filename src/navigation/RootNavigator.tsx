@@ -11,6 +11,7 @@ import {AppDispatch} from '../store';
 import {AppActions} from '../store/features/appReducer';
 import {useAddFirebaseTokenMutation} from '../services/firebaseTokenService';
 import PriceTrackingScreen from '../screens/PriceTrackingScreen';
+import SplashScreen from '../screens/SplashScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();
 const RootNavigator = () => {

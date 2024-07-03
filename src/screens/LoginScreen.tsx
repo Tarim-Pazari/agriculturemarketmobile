@@ -41,12 +41,12 @@ export default function LoginScreen(
         }
       })
       .catch(er => {
+        ref.current?.validate(er.data);
         if (er?.data?.message) {
           AlertDialog.showModal({
             message: er?.data?.message,
           });
         }
-        ref.current?.validate(er.data);
       });
   };
 
@@ -83,12 +83,12 @@ export default function LoginScreen(
         <View style={{marginBottom: 10}}>
           <Button onPress={handleLogin} text="Giriş Yap" />
         </View>
-        <HorizontalLine>
+        {/* <HorizontalLine>
           <OtherOptionContainer>
             <CustomText color="secondary">veya</CustomText>
           </OtherOptionContainer>
-        </HorizontalLine>
-        <SocialMediaContainer>
+        </HorizontalLine> */}
+        {/* <SocialMediaContainer>
           <SocialButton
             activeOpacity={0.8}
             theme={{
@@ -112,7 +112,7 @@ export default function LoginScreen(
             }}>
             <GoogleSvg />
           </SocialButton>
-        </SocialMediaContainer>
+        </SocialMediaContainer> */}
         <RegisterContainer>
           <RegisterTextContainer>
             <CustomText color="secondary">Hesabınız yok mu?</CustomText>

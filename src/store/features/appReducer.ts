@@ -1,5 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {AppLocation} from '../../types/type';
+import CityResponse from '../../payload/response/CityResponse';
+export interface AppLocation {
+  cityId: number;
+  districtId: number;
+  city?: CityResponse;
+  district?: DistrictResponse;
+}
 
 export interface AppState {
   firebaseToken: string | null;
@@ -27,10 +33,7 @@ const appSlice = createSlice({
           ? action.payload
           : {
               ...state.location,
-              userSelection: {
-                ...state.location.userSelection,
-                ...action.payload,
-              },
+              ...action.payload,
             };
     },
   },

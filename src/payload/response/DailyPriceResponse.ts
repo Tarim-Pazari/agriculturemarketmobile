@@ -10,7 +10,7 @@ interface DailyPriceResponse {
   priceStatus: number;
   productId: number;
   name: string;
-  icon: string;
+  iconPath: string;
   unit: string;
   districtName: string;
   isTracking: boolean;

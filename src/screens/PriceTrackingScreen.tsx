@@ -32,7 +32,6 @@ export default function PriceTrackingScreen(
     usePriceTracking({fcmToken: firebaseToken as string})
       .unwrap()
       .then(res => {
-        console.log(res.list);
         setTrackingList(res.list);
       })
       .catch(err => {
@@ -43,6 +42,7 @@ export default function PriceTrackingScreen(
   return (
     <Container goBackShow header title="Fiyat Takibi" p={10}>
       <CustomFlatList
+        notFoundText="Fiyat takibi bulunamadı."
         isSearchable
         filter={(entity, value) => {
           return entity.product.name
@@ -52,6 +52,9 @@ export default function PriceTrackingScreen(
         renderItem={(item, index) => {
           return (
             <PriceTrackingCard
+              removePriceTracking={() => {
+                setTrackingList(trackingList.filter(i => i.id !== item.id));
+              }}
               onPress={() => {
                 props.navigation.navigate('ProductScreen', {
                   product: item.product,

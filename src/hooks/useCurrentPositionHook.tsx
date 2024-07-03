@@ -1,5 +1,4 @@
-import {View, Text} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import Geolocation from '@react-native-community/geolocation';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../store';
@@ -9,25 +8,9 @@ import useRequestLocationHook from './useRequestLocationHook';
 export default function useCurrentPositionHook() {
   const dispatch: AppDispatch = useDispatch();
   const requestResult = useRequestLocationHook();
-  const {location} = useSelector((state: RootState) => state.app);
-  const [loading, setLoading] = useState(true);
+  const location = useSelector((state: RootState) => state.app.location);
+  const [loading, setLoading] = useState(false);
   const [permission, setPermission] = useState(false);
-  useEffect(() => {
-    if (location == null) {
-      getCurrentPosition();
-    } else {
-      setLoading(false);
-    }
-    return () => {};
-  }, []);
-
-  useEffect(() => {
-    if (requestResult === 'granted') {
-      setPermission(true);
-    } else {
-      setPermission(false);
-    }
-  }, [requestResult]);
 
   const getCurrentPosition = () => {
     setLoading(true);
@@ -65,10 +48,10 @@ export default function useCurrentPositionHook() {
     );
   };
   const getFullAddress = useCallback(() => {
-    if (location?.userSelection.city && location?.userSelection.district) {
-      return `${location?.userSelection.district?.name}, ${location?.userSelection.city?.name}`;
+    if (location?.userSelection?.city && location?.userSelection?.district) {
+      return `${location?.userSelection?.district?.name}, ${location?.userSelection?.city?.name}`;
     }
-    return `${location?.districtName}, ${location?.cityName}`;
+    return 'Konum Seçilmedi';
   }, [location]);
   const positionLoading = loading;
   return {...location, positionLoading, getFullAddress, permission};

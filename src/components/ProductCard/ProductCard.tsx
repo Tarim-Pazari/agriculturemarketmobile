@@ -21,7 +21,6 @@ import {
   useDeletePriceTrackingMutation,
   useTrackPriceMutation,
 } from '../../services/priceTrackingService';
-import PriceTrackingResponse from '../../payload/response/PriceTrackingResponse';
 
 interface ProductCardProps extends TouchableOpacityProps {
   item: DailyPriceResponse;
@@ -32,7 +31,7 @@ const ProductCard = (props: ProductCardProps) => {
   const {item} = props;
   const colors = useThemeColors();
   const [selectedReminder, setSelectedReminder] = useState(
-    item.isTracking || false,
+    item.priceTrackingId || false,
   );
   const [usePriceTracking] = useTrackPriceMutation();
   const [useDeletePriceTracking] = useDeletePriceTrackingMutation();
@@ -67,14 +66,16 @@ const ProductCard = (props: ProductCardProps) => {
 
   return (
     <CardContainer activeOpacity={0.7} {...props}>
-      <ProductImage
-        resizeMode="cover"
-        source={{uri: `${BaseUrl}/` + item.icon}}
-      />
+      {item.iconPath && (
+        <ProductImage
+          resizeMode="cover"
+          source={{uri: `${BaseUrl}/` + item.iconPath}}
+        />
+      )}
       <ProductContainer>
         <ProductHeader>
           <ProductName>{item.name}</ProductName>
-          <ProductReminderButton
+          {/* <ProductReminderButton
             hitSlop={10}
             activeOpacity={0.8}
             onPress={() => {
@@ -109,7 +110,7 @@ const ProductCard = (props: ProductCardProps) => {
               size={12}
               color={!selectedReminder ? colors.primary : '#fff'}
             />
-          </ProductReminderButton>
+          </ProductReminderButton> */}
         </ProductHeader>
         <ProductInformation>
           <ProductUnit>{item.unit}</ProductUnit>
@@ -118,13 +119,13 @@ const ProductCard = (props: ProductCardProps) => {
               {new Intl.NumberFormat('tr-TR', {
                 style: 'currency',
                 currency: 'TRY',
-              }).format(item.minPrice)}
+              }).format(item.minPrice || 0)}
             </ProductMinPrice>
             <ProductMaxPrice>
               {new Intl.NumberFormat('tr-TR', {
                 style: 'currency',
                 currency: 'TRY',
-              }).format(item.maxPrice)}
+              }).format(item.maxPrice || 0)}
             </ProductMaxPrice>
           </ProductPrices>
         </ProductInformation>

@@ -1,6 +1,7 @@
 import ProductResponse from '../payload/response/ProductResponse';
 
 export type RootStackParamList = {
+  SpashScreen: undefined;
   BottomTabMenu: undefined;
   LoginScreen: undefined;
   RegisterScreen: undefined;

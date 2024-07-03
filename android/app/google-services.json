@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1056832416693:android:7b2b9f2fe777cc05b547fc",
+        "mobilesdk_app_id": "1:1056832416693:android:4254009878c1566bb547fc",
         "android_client_info": {
-          "package_name": "com.agriculturemarket"
+          "package_name": "com.tarimpazari"
         }
       },
       "oauth_client": [],

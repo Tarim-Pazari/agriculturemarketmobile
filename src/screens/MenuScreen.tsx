@@ -37,6 +37,7 @@ export default function MenuScreen(
         name="Satışlarım"
       />
       <Col
+        colDisabled={user == null}
         onPress={() => {
           props.navigation.navigate('PriceTrackingScreen');
         }}
@@ -44,9 +45,18 @@ export default function MenuScreen(
         leftIcon={<FollowTrackingListSvg />}
         name="Fiyat Takip Listem"
       />
-      <Col svg leftIcon={<CommissionSvg />} name="Komisyoncular" />
-      <Col svg leftIcon={<MedicineSvg />} name="Zirai İlaçlar" />
-      <Col svg leftIcon={<SeedlingSvg />} name="Fideler" />
+      <Col
+        colDisabled={user == null}
+        svg
+        leftIcon={<MedicineSvg />}
+        name="Zirai İlaçlar"
+      />
+      <Col
+        colDisabled={user == null}
+        svg
+        leftIcon={<SeedlingSvg />}
+        name="Fideler"
+      />
       {user != null && (
         <Footer>
           <Col

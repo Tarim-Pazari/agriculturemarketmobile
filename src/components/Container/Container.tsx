@@ -18,19 +18,21 @@ interface ContainerProps extends HeaderProps {
   pr?: number;
   pt?: number;
   pb?: number;
+  bg?: string;
 }
 
 export default function Container({
   children,
   header,
   goBackShow = false,
+  bg,
   ...props
 }: ContainerProps) {
   const colors = useThemeColors();
   return !header ? (
     <SafeViewContainer
       style={{
-        backgroundColor: colors.background,
+        backgroundColor: bg || colors.background,
       }}>
       <View
         style={{
@@ -52,7 +54,7 @@ export default function Container({
   ) : (
     <ViewContainer
       style={{
-        backgroundColor: colors.background,
+        backgroundColor: bg || colors.background,
       }}>
       {header && <Header {...props} goBackShow={goBackShow} />}
       <View

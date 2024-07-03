@@ -12,15 +12,3 @@ export type SvgType = {
   height?: number;
   width?: number;
 };
-export interface AppLocation {
-  latitude: number;
-  longitude: number;
-  cityName: string;
-  districtName: string;
-  userSelection: {
-    cityId: number;
-    districtId: number;
-    city?: CityResponse;
-    district?: DistrictResponse;
-  };
-}

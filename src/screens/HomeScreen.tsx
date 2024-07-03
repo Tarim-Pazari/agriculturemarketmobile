@@ -32,25 +32,19 @@ import SelectCity from '../components/SelectCity/SelectCity';
 export default function HomeScreen(
   props: NativeStackScreenProps<RootStackParamList>,
 ) {
-  const {firebaseToken} = useSelector((state: RootState) => state.app);
+  const userSelection = useSelector((state: RootState) => state.app.location);
   const [selectedDay, setSelectedDay] = useState(dayjs().format('YYYY-MM-DD'));
   const [items, setItems] = useState<Array<DailyPriceResponse>>([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
-  const {cityName, districtName, positionLoading, userSelection} =
-    useCurrentPositionHook();
-  const [useGetDailyPrice] = useGetDailyPriceMutation();
+
   const [useGetDailyPriceByIds] = useGetDailyPriceByIdsMutation();
   useEffect(() => {
-    if (!positionLoading) {
-      loadData();
-    }
-  }, [selectedDay, positionLoading]);
-
+    loadData();
+  }, [selectedDay, userSelection]);
   const loadData = async () => {
-    setLoading(true);
-
     if (userSelection?.city && userSelection?.district) {
+      setLoading(true);
       let entity: DailyPriceByIdRequest = {
         date: selectedDay,
         cityId: userSelection.city.id,
@@ -62,6 +56,7 @@ export default function HomeScreen(
           if (response?.list?.length !== 0) {
             setItems(response.list);
           } else {
+            setItems([]);
             AlertDialog.showModal({
               title: 'Uyarı',
               message: response?.message || response.exceptionMessage,
@@ -71,37 +66,14 @@ export default function HomeScreen(
         .catch(error => console.error(error, 'hata'))
         .finally(() => setLoading(false));
     } else {
-      if (cityName && selectedDay) {
-        let fixedDate = dayjs(selectedDay).format('YYYYMMDD');
-        let entity: DailyPriceRequest = {
-          date: fixedDate,
-          cityName: cityName,
-          districtName: districtName as string,
-          fcmToken: firebaseToken as string,
-        };
-        useGetDailyPrice(entity)
-          .unwrap()
-          .then(response => {
-            if (response?.list?.length !== 0) {
-              setItems(response.list);
-            } else {
-              AlertDialog.showModal({
-                title: 'Uyarı',
-                message: response?.message || response.exceptionMessage,
-              });
-            }
-          })
-          .catch(error => console.error(error, 'hata'))
-          .finally(() => setLoading(false));
-      }
+      setLoading(false);
     }
   };
-
   return (
     <View style={{flex: 1}}>
       <SafeAreaView
         style={{
-          height: 180,
+          height: Platform.OS === 'ios' ? 180 : 140,
           backgroundColor: '#1E8604',
         }}>
         <CalendarProvider date={selectedDay}>
@@ -135,32 +107,36 @@ export default function HomeScreen(
         </View>
       </SafeAreaView>
       <SelectCity />
-      <View style={{flex: 1, marginBottom: 90}}>
+      <View style={{flex: 1, marginBottom: 60}}>
         <View
           style={
             loading
               ? {justifyContent: 'center', alignItems: 'center', flex: 1}
-              : {}
+              : {flex: 1}
           }>
           {loading ? (
             <ActivityIndicator size="large" color="#0000ff" />
           ) : (
             <CustomFlatList
-              renderItem={(item, index) => (
-                <ProductCard
-                  onPress={() => {
-                    props.navigation.navigate('ProductScreen', {
-                      product: {
-                        id: item.productId,
-                        name: item.name,
-                        icon: item.icon,
-                        unit: item.unit,
-                      },
-                    });
-                  }}
-                  item={item}
-                />
-              )}
+              handleRefresh={loadData}
+              notFoundText="Fiyat listesi bulunamadı."
+              renderItem={(item, index) => {
+                return (
+                  <ProductCard
+                    onPress={() => {
+                      // props.navigation.navigate('ProductScreen', {
+                      //   product: {
+                      //     id: item.productId,
+                      //     name: item.name,
+                      //     icon: item.icon,
+                      //     unit: item.unit,
+                      //   },
+                      // });
+                    }}
+                    item={item}
+                  />
+                );
+              }}
               data={items?.filter?.(item => {
                 return item?.name
                   ?.toLowerCase?.()

@@ -1,4 +1,10 @@
-import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 
 import styled from 'styled-components';
 import useThemeColors from '../../constant/useColor';
@@ -82,6 +88,8 @@ export default function Header({
 }
 const HeaderContainer = styled(SafeAreaView)`
   background-color: ${props => props.theme.background};
+  height: ${Platform.OS === 'ios' ? 'auto' : '50px'};
+  justify-content: center;
 `;
 const Container = styled(View)`
   justify-content: center;

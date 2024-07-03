@@ -43,7 +43,6 @@ export default function CustomFlatList(props: CustomListProps) {
       return [];
     }
   };
-
   return (
     <>
       {props.isSearchable && (

@@ -1,6 +1,5 @@
 import {
   View,
-  Text,
   Image,
   TouchableOpacity,
   TouchableOpacityProps,
@@ -10,26 +9,58 @@ import styled from 'styled-components';
 import CustomText from '../Text/Text';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faBell} from '@fortawesome/free-regular-svg-icons';
-import ProductResponse from '../../payload/response/ProductResponse';
 import {BaseUrl} from '../../store/api/BaseApi';
 import useThemeColors from '../../constant/useColor';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../store';
 import AlertDialog from '../AlertDialog/AlertDialog';
-import DailyPriceResponse from '../../payload/response/DailyPriceResponse';
-import {useTrackPriceMutation} from '../../services/priceTrackingService';
+import {
+  useDeletePriceTrackingMutation,
+  useTrackPriceMutation,
+} from '../../services/priceTrackingService';
 import PriceTrackingResponse from '../../payload/response/PriceTrackingResponse';
 
 interface PriceTrackingCardProps extends TouchableOpacityProps {
   item: PriceTrackingResponse;
+  removePriceTracking: () => void;
 }
 const PriceTrackingCard = (props: PriceTrackingCardProps) => {
   const {user} = useSelector((state: RootState) => state.auth);
   const {firebaseToken} = useSelector((state: RootState) => state.app);
-  const {item} = props;
+  const {item, removePriceTracking} = props;
   const colors = useThemeColors();
   const [selectedReminder, setSelectedReminder] = useState(true);
 
+  const [usePriceTracking] = useTrackPriceMutation();
+  const [useDeletePriceTracking] = useDeletePriceTrackingMutation();
+
+  const handleReminder = () => {
+    usePriceTracking({
+      productId: item.productId,
+      fcmToken: firebaseToken as string,
+      dailyPriceId: item.id,
+    })
+      .unwrap()
+      .then(res => {
+        if (res.isSuccess) {
+          setSelectedReminder(true);
+          AlertDialog.showModal({
+            message: 'Fiyat hatırlatma başarıyla eklendi.',
+          });
+        } else {
+          AlertDialog.showModal({
+            message: res.exceptionMessage,
+          });
+        }
+      })
+      .catch(er => {
+        if (er?.data?.message) {
+          AlertDialog.showModal({
+            message: er?.data?.message,
+          });
+        }
+      });
+  };
   return (
     <CardContainer activeOpacity={0.7} {...props}>
       <ProductImage
@@ -42,7 +73,30 @@ const PriceTrackingCard = (props: PriceTrackingCardProps) => {
           <ProductReminderButton
             hitSlop={10}
             activeOpacity={0.8}
-            onPress={() => {}}
+            onPress={() => {
+              if (selectedReminder) {
+                useDeletePriceTracking(item.id)
+                  .unwrap()
+                  .then(res => {
+                    if (res.isSuccess) {
+                      removePriceTracking();
+                      setSelectedReminder(false);
+                      AlertDialog.showModal({
+                        message: 'Fiyat hatırlatma başarıyla silindi.',
+                      });
+                    }
+                  })
+                  .catch(er => {
+                    console.log(er);
+                  });
+              } else {
+                if (user) {
+                  setSelectedReminder(!selectedReminder);
+                } else {
+                  handleReminder();
+                }
+              }
+            }}
             theme={{
               background: selectedReminder ? colors.primary : 'transparent',
               borderColor: selectedReminder ? colors.primary : colors.primary,

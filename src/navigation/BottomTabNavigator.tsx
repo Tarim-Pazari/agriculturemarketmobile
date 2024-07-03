@@ -37,6 +37,7 @@ export default function BottomTabNavigator(
         tabBarLabelStyle: {
           fontSize: 11,
           fontWeight: 'bold',
+          top: -5,
         },
       }}>
       <Tab.Screen
@@ -53,7 +54,7 @@ export default function BottomTabNavigator(
         }}
         component={HomeScreen}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Menu"
         options={{
           tabBarIcon: ({color, size, focused}) => (
@@ -66,8 +67,8 @@ export default function BottomTabNavigator(
           tabBarLabel: 'Menü',
         }}
         component={MenuScreen}
-      />
-      {user === null ? (
+      /> */}
+      {/* {user === null ? (
         <Tab.Screen
           name={'LoginScreen'}
           listeners={{
@@ -103,7 +104,7 @@ export default function BottomTabNavigator(
           }}
           component={UserScreen}
         />
-      )}
+      )} */}
     </Tab.Navigator>
   );
 }
