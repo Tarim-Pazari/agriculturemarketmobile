@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Keyboard} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
 import CustomText from '../Text/Text';
@@ -13,27 +13,42 @@ import useThemeColors from '../../constant/useColor';
 import CustomFlatList from '../Flatlist/CustomFlatList';
 import {AppDispatch, RootState} from '../../store';
 import {useDispatch, useSelector} from 'react-redux';
-import {AppActions, AppLocation} from '../../store/features/appReducer';
+import {AppActions} from '../../store/features/appReducer';
+import {useAddFirebaseTokenMutation} from '../../services/firebaseTokenService';
+import FirebaseTokenRequest from '../../payload/request/FirebaseTokenRequest';
 
-export default function SelectCity() {
-  const {positionLoading, getFullAddress, permission} =
-    useCurrentPositionHook();
+export default function SelectCity({refRBSheet}: {refRBSheet: any}) {
+  const {positionLoading} = useCurrentPositionHook();
   const dispatch = useDispatch<AppDispatch>();
+  const [addFcmToken] = useAddFirebaseTokenMutation();
   const [useGetCities] = useGetCitiesMutation();
+  const fcmToken = useSelector((state: RootState) => state.app.firebaseToken);
   const location = useSelector((state: RootState) => state.app.location);
-  const userSelection = location;
   const [cities, setCities] = useState<Array<CityResponse>>([]);
   const [selectedCity, setSelectedCity] = useState({} as CityResponse);
   const colors = useThemeColors();
-  const refRBSheet = useRef<any>(null);
+  const userSelection = location;
+
+  const [opened, setOpened] = useState(false);
 
   useEffect(() => {
-    getCities();
-  }, []);
+    if (opened) {
+      getCities();
+    }
+  }, [opened]);
   const getCities = async () => {
     const response = await useGetCities();
     if (response.data) {
       setCities(response.data.list);
+    }
+  };
+  const updateFirebaseToken = async (districtId: number) => {
+    if (fcmToken != '') {
+      let entity: FirebaseTokenRequest = {
+        fcmToken: fcmToken as string,
+        districtId: districtId,
+      };
+      addFcmToken(entity);
     }
   };
   return (
@@ -41,6 +56,11 @@ export default function SelectCity() {
       <LanguageButton
         activeOpacity={0.8}
         onPress={() => {
+          let keyboardStatus = Keyboard.isVisible();
+          if (keyboardStatus) {
+            Keyboard.dismiss();
+          }
+          setOpened(true);
           refRBSheet?.current?.open();
         }}>
         <View style={{flexDirection: 'row', gap: 10}}>
@@ -64,6 +84,7 @@ export default function SelectCity() {
         draggable
         onClose={() => {
           setSelectedCity({} as CityResponse);
+          setOpened(false);
         }}
         customStyles={{
           wrapper: {
@@ -92,6 +113,7 @@ export default function SelectCity() {
                   setSelectedCity(item);
                   return;
                 } else {
+                  updateFirebaseToken(item.id);
                   dispatch(
                     AppActions.setUserLocation({
                       cityId: selectedCity?.id,

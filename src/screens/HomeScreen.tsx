@@ -5,8 +5,9 @@ import {
   TouchableOpacity,
   Platform,
   Dimensions,
+  Keyboard,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {CalendarProvider, WeekCalendar} from 'react-native-calendars';
 import dayjs from 'dayjs';
 import Input from '../components/Input/Input';
@@ -32,16 +33,18 @@ import SelectCity from '../components/SelectCity/SelectCity';
 export default function HomeScreen(
   props: NativeStackScreenProps<RootStackParamList>,
 ) {
-  const userSelection = useSelector((state: RootState) => state.app.location);
+  const location = useSelector((state: RootState) => state.app.location);
+  const userSelection = location;
   const [selectedDay, setSelectedDay] = useState(dayjs().format('YYYY-MM-DD'));
   const [items, setItems] = useState<Array<DailyPriceResponse>>([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
-
+  const refRBSheet = useRef<any>(null);
   const [useGetDailyPriceByIds] = useGetDailyPriceByIdsMutation();
   useEffect(() => {
     loadData();
   }, [selectedDay, userSelection]);
+
   const loadData = async () => {
     if (userSelection?.city && userSelection?.district) {
       setLoading(true);
@@ -98,6 +101,7 @@ export default function HomeScreen(
           <Input
             enableFocusBorder={false}
             inputSize="sm"
+            autoFocus={false}
             style={{backgroundColor: '#fff'}}
             icon={faSearch}
             placeholder="Ürün Ara"
@@ -106,8 +110,8 @@ export default function HomeScreen(
           />
         </View>
       </SafeAreaView>
-      <SelectCity />
-      <View style={{flex: 1, marginBottom: 60}}>
+      <SelectCity refRBSheet={refRBSheet} />
+      <View style={{flex: 1, marginBottom: 80}}>
         <View
           style={
             loading

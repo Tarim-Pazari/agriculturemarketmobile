@@ -47,6 +47,7 @@ export default function Button({
         }, 1000);
         props.onPress && props.onPress(event);
       }}
+      style={props.style}
       activeOpacity={props.activeOpacity || 0.7}
       theme={{
         borderRadius: borderRadius,

@@ -147,7 +147,8 @@ class AlertDialog {
     });
   }
   showModal(props: ModalProps): Promise<boolean> {
-    props.isAutoClose = props.isAutoClose || true;
+    console.log(props.isAutoClose, 'props.isAutoClose');
+    let isAutoHide = props?.isAutoClose ?? true;
     return new Promise(resolve => {
       const id = ModalPortal.show(
         <Modal
@@ -220,6 +221,7 @@ class AlertDialog {
                   {props.onConfirm && (
                     <Button
                       text={props.onConfirmText || 'Onayla'}
+                      style={{flex: 1}}
                       onPress={() => {
                         ModalPortal.dismiss(id);
                         this.ids.pop();
@@ -235,7 +237,7 @@ class AlertDialog {
         </Modal>,
       );
       this.ids.push(id);
-      if (props.isAutoClose) {
+      if (isAutoHide) {
         setTimeout(() => {
           ModalPortal.dismiss(id);
           this.ids.pop();

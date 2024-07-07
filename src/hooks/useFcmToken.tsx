@@ -9,6 +9,8 @@ export default function useFcmToken() {
   useEffect(() => {
     if (Platform.OS === 'ios') {
       registerForRemoteMessages();
+    } else {
+      requestPermissions();
     }
   }, []);
   const registerForRemoteMessages = () => {
@@ -38,7 +40,8 @@ export default function useFcmToken() {
       .getToken()
       .then(token => {
         setFcmToken(token);
-      });
+      })
+      .catch(e => console.log(e));
   };
 
   return {fcmToken};
