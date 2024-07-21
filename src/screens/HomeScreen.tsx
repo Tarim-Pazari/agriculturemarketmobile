@@ -13,22 +13,18 @@ import dayjs from 'dayjs';
 import Input from '../components/Input/Input';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import ProductCard from '../components/ProductCard/ProductCard';
-import useCurrentPositionHook from '../hooks/useCurrentPositionHook';
 
 import AlertDialog from '../components/AlertDialog/AlertDialog';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../types/navigator';
-import {
-  useGetDailyPriceByIdsMutation,
-  useGetDailyPriceMutation,
-} from '../services/dailyPriceService';
+import {useGetDailyPriceByIdsMutation} from '../services/dailyPriceService';
 import DailyPriceResponse from '../payload/response/DailyPriceResponse';
-import DailyPriceRequest from '../payload/request/DailyPriceRequest';
 import {useSelector} from 'react-redux';
 import {RootState} from '../store';
 import CustomFlatList from '../components/Flatlist/CustomFlatList';
 
 import SelectCity from '../components/SelectCity/SelectCity';
+import CustomText from '../components/Text/Text';
 
 export default function HomeScreen(
   props: NativeStackScreenProps<RootStackParamList>,
@@ -76,26 +72,38 @@ export default function HomeScreen(
     <View style={{flex: 1}}>
       <SafeAreaView
         style={{
-          height: Platform.OS === 'ios' ? 180 : 140,
+          height: Platform.OS === 'ios' ? 200 : 160,
           backgroundColor: '#1E8604',
         }}>
+        <View>
+          <CustomText fontSizes="h5" center color="white">
+            {dayjs(selectedDay).format('MMMM YYYY')}
+          </CustomText>
+        </View>
         <CalendarProvider date={selectedDay}>
-          <View>
-            <WeekCalendar
-              date={selectedDay}
-              onDayPress={day => {
-                setSelectedDay(day.dateString);
-              }}
-              firstDay={1}
-              theme={{
-                calendarBackground: 'transparent',
-                backgroundColor: 'transparent',
-                dayTextColor: '#fff',
-                textSectionTitleColor: '#fff',
-                selectedDayBackgroundColor: '#72B262',
-              }}
-            />
-          </View>
+          <WeekCalendar
+            date={selectedDay}
+            onDayPress={day => {
+              let maxDate = dayjs().format('YYYY-MM-DD');
+              let selectedDate = dayjs(day.dateString).format('YYYY-MM-DD');
+              if (selectedDate > maxDate) {
+                AlertDialog.showModal({
+                  title: 'Uyarı',
+                  message: 'İleri tarih seçilemez.',
+                });
+                return;
+              }
+              setSelectedDay(day.dateString);
+            }}
+            firstDay={1}
+            theme={{
+              calendarBackground: 'transparent',
+              backgroundColor: 'transparent',
+              dayTextColor: '#fff',
+              textSectionTitleColor: '#fff',
+              selectedDayBackgroundColor: '#72B262',
+            }}
+          />
         </CalendarProvider>
         <View style={{marginTop: 10, marginBottom: 7, marginHorizontal: 10}}>
           <Input

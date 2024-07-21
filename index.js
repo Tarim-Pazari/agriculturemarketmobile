@@ -11,8 +11,10 @@ import 'react-native-gesture-handler';
 import './src/lang/i18n';
 import React, {useEffect} from 'react';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import dayjs from 'dayjs';
+import 'dayjs/locale/tr';
 LogBox.ignoreAllLogs();
-
+dayjs.locale('tr');
 LocaleConfig.locales['tr'] = {
   monthNames: [
     'Ocak',
