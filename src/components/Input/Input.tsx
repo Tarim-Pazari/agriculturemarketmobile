@@ -1,41 +1,30 @@
 import {
   View,
   TextInput,
-  TextInputProps,
   TouchableOpacity,
   ActivityIndicator,
   Platform,
 } from 'react-native';
 import styled from 'styled-components';
-import {useSharedValue} from 'react-native-reanimated';
+
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faEye, faEyeSlash, faUser} from '@fortawesome/free-regular-svg-icons';
 import useThemeColors from '../../constant/useColor';
-import {IconProp} from '@fortawesome/fontawesome-svg-core';
 import {useState} from 'react';
 import CustomText from '../Text/Text';
 
-interface InputProps extends TextInputProps {
-  iconPosition?: 'left' | 'right';
-  icon?: IconProp;
-  loading?: boolean;
-  inputSize?: 'sm' | 'md';
-  enableFocusBorder?: boolean;
-  errorMessage?: string;
-  type?: 'checkbox' | 'radio' | 'text' | 'password' | 'email' | 'number';
-  required?: boolean;
-}
+import {FormInputProps, InputProps} from 'react-native-form-container';
+
 export default function Input({
   iconPosition = 'left',
   icon = undefined,
-  loading = false,
   inputSize = 'md',
   enableFocusBorder = true,
   errorMessage,
-  type = 'text',
+
   required = false,
   ...props
-}: InputProps) {
+}: FormInputProps) {
   const colors = useThemeColors();
   const [passwordShow, setPasswordShow] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -53,7 +42,7 @@ export default function Input({
   let iconSize = inputSize === 'sm' ? 17 : 20;
 
   let iconSmTop =
-    inputSize === 'sm' ? (Platform.OS === 'ios' ? '10px' : '15px') : '20px';
+    inputSize === 'sm' ? (Platform.OS === 'ios' ? '14px' : '15px') : '20px';
   let iconMdTop = inputSize === 'md' ? '15px' : '20px';
   let iconTop = inputSize === 'sm' ? iconSmTop : iconMdTop;
 
@@ -75,8 +64,14 @@ export default function Input({
         placeholderTextColor={colors.inputPlaceholder}
         {...props}
         secureTextEntry={props.secureTextEntry && !passwordShow}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
+        onFocus={event => {
+          handleFocus();
+          props.onFocus && props.onFocus(event);
+        }}
+        onBlur={event => {
+          handleBlur();
+          props.onBlur && props.onBlur(event);
+        }}
         theme={{
           size:
             inputSize === 'sm'
@@ -108,12 +103,7 @@ export default function Input({
           />
         </PasswordIconButton>
       )}
-      {loading && (
-        <ActivityIndicator
-          style={{position: 'absolute', right: 10, top: 15}}
-          color={colors.primary}
-        />
-      )}
+
       {iconPosition === 'right' && icon !== undefined && (
         <IconRight
           theme={{
@@ -139,6 +129,7 @@ const CustomInput = styled(TextInput)`
   border-radius: 10px;
   background-color: #fff;
   color: #143722;
+  height: 45px;
   border: 1px solid ${props => props.theme.borderColor};
 `;
 const IconLeft = styled(FontAwesomeIcon)`

@@ -1,13 +1,11 @@
 import RoleResponse from './RoleResponse';
 
 interface LoginResponse {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  token: string;
-  status: string;
-  roles: RoleResponse[];
+  uid?: string;
+  firstName?: string;
+  lastName?: string;
+  fullName?: string;
+  photo?: string;
+  email?: string;
 }
 export default LoginResponse;

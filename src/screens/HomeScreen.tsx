@@ -6,6 +6,7 @@ import {
   Platform,
   Dimensions,
   Keyboard,
+  Pressable,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {CalendarProvider, WeekCalendar} from 'react-native-calendars';
@@ -25,6 +26,7 @@ import CustomFlatList from '../components/Flatlist/CustomFlatList';
 
 import SelectCity from '../components/SelectCity/SelectCity';
 import CustomText from '../components/Text/Text';
+import BottomSheetComponent from '../components/BottomSheet/BottomSheetComponent';
 
 export default function HomeScreen(
   props: NativeStackScreenProps<RootStackParamList>,
@@ -37,6 +39,8 @@ export default function HomeScreen(
   const [loading, setLoading] = useState(true);
   const refRBSheet = useRef<any>(null);
   const [useGetDailyPriceByIds] = useGetDailyPriceByIdsMutation();
+
+  const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
   useEffect(() => {
     loadData();
   }, [selectedDay, userSelection]);
@@ -72,14 +76,17 @@ export default function HomeScreen(
     <View style={{flex: 1}}>
       <SafeAreaView
         style={{
-          height: Platform.OS === 'ios' ? 200 : 160,
+          height: Platform.OS === 'ios' ? 210 : 160,
           backgroundColor: '#1E8604',
         }}>
-        <View>
+        <Pressable
+          onPress={() => {
+            setIsBottomSheetVisible(true);
+          }}>
           <CustomText fontSizes="h5" center color="white">
             {dayjs(selectedDay).format('MMMM YYYY')}
           </CustomText>
-        </View>
+        </Pressable>
         <CalendarProvider date={selectedDay}>
           <WeekCalendar
             date={selectedDay}
@@ -107,6 +114,13 @@ export default function HomeScreen(
         </CalendarProvider>
         <View style={{marginTop: 10, marginBottom: 7, marginHorizontal: 10}}>
           <Input
+            onFocus={() => {
+              AlertDialog.showModal({
+                title: 'Uyarı',
+                message: 'Lütfen konum seçiniz.',
+                type: 'success',
+              });
+            }}
             enableFocusBorder={false}
             inputSize="sm"
             autoFocus={false}
@@ -119,7 +133,7 @@ export default function HomeScreen(
         </View>
       </SafeAreaView>
       <SelectCity refRBSheet={refRBSheet} />
-      <View style={{flex: 1, marginBottom: 80}}>
+      <View style={{flex: 1, marginBottom: Platform.OS === 'ios' ? 0 : 80}}>
         <View
           style={
             loading
@@ -158,6 +172,14 @@ export default function HomeScreen(
           )}
         </View>
       </View>
+      <BottomSheetComponent
+        enableClose
+        isOpen={isBottomSheetVisible}
+        handleOpen={() => {
+          setIsBottomSheetVisible(false);
+        }}
+        snapPoints={['50%']}
+      />
     </View>
   );
 }

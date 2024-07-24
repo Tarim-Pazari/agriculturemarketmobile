@@ -19,6 +19,18 @@ interface ContainerProps extends HeaderProps {
   pt?: number;
   pb?: number;
   bg?: string;
+  mx?: number;
+  my?: number;
+  py?: number;
+  px?: number;
+  justifyContent?:
+    | 'center'
+    | 'flex-start'
+    | 'flex-end'
+    | 'space-between'
+    | 'space-around'
+    | 'space-evenly';
+  alignItems?: 'center' | 'flex-start' | 'flex-end' | 'stretch' | 'baseline';
 }
 
 export default function Container({
@@ -47,6 +59,12 @@ export default function Container({
           paddingTop: props.pt,
           paddingBottom: props.pb,
           gap: props.gap,
+          marginHorizontal: props.mx,
+          marginVertical: props.my,
+          paddingHorizontal: props.px,
+          paddingVertical: props.py,
+          justifyContent: props.justifyContent,
+          alignItems: props.alignItems,
         }}>
         {children}
       </View>
@@ -70,6 +88,12 @@ export default function Container({
           paddingTop: props.pt,
           paddingBottom: props.pb,
           gap: props.gap,
+          marginHorizontal: props.mx,
+          marginVertical: props.my,
+          paddingHorizontal: props.px,
+          paddingVertical: props.py,
+          justifyContent: props.justifyContent,
+          alignItems: props.alignItems,
         }}>
         {children}
       </View>

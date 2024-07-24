@@ -2,6 +2,7 @@
 #import <CodePush/CodePush.h>
 #import <React/RCTBundleURLProvider.h>
 #import <Firebase.h>
+#import <GoogleSignIn/GoogleSignIn.h>
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -20,6 +21,7 @@
 {
   return [self bundleURL];
 }
+
 
 - (NSURL *)bundleURL
 {

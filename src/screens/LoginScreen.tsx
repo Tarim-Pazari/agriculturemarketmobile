@@ -8,48 +8,58 @@ import {faEnvelope} from '@fortawesome/free-regular-svg-icons';
 import {faLock} from '@fortawesome/free-solid-svg-icons';
 import CustomText from '../components/Text/Text';
 import Button from '../components/Button/Button';
-import {RootStackParamList} from '../types/navigator';
+import {BottomTabParamList, RootStackParamList} from '../types/navigator';
 import FacebookSvg from '../assets/FacebookSvg';
 import AppleSvg from '../assets/AppleSvg';
 import GoogleSvg from '../assets/GoogleSvg';
 
-import {useLoginMutation} from '../services/authService';
 import LoginRequest from '../payload/request/LoginRequest';
 import {useDispatch} from 'react-redux';
 import {AppDispatch} from '../store';
 import {AuthActions} from '../store/features/authReducer';
 import AlertDialog from '../components/AlertDialog/AlertDialog';
 import FormContainer, {FormContainerRef} from 'react-native-form-container';
-export default function LoginScreen(
-  props: NativeStackScreenProps<RootStackParamList, 'LoginScreen'>,
-) {
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import auth from '@react-native-firebase/auth';
+import ErrorCode from '../firebase/ErrorCode';
+
+export default function LoginScreen(props: any) {
   const dispatch: AppDispatch = useDispatch();
   const [loginRequest, setLoginRequest] = useState<LoginRequest>({
     email: '',
     password: '',
   });
-  const [useLogin, result] = useLoginMutation();
+
   const ref = React.useRef<FormContainerRef>(null);
 
-  const handleLogin = () => {
-    useLogin(loginRequest)
-      .unwrap()
-      .then(res => {
-        if (res.isSuccess) {
-          dispatch(AuthActions.setUser(res.entity));
-          props.navigation.navigate('BottomTabMenu');
-        }
+  const signInWithGoogle = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      const {idToken, accessToken} = userInfo as any;
+      const googleCredential = auth.GoogleAuthProvider.credential(
+        idToken,
+        accessToken,
+      );
+      await auth().signInWithCredential(googleCredential);
+      props.navigation.navigate('Home');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const login = () => {
+    auth()
+      .signInWithEmailAndPassword(loginRequest.email, loginRequest.password)
+      .then(userCredential => {
+        props.navigation.goBack();
       })
-      .catch(er => {
-        ref.current?.validate(er.data);
-        if (er?.data?.message) {
-          AlertDialog.showModal({
-            message: er?.data?.message,
-          });
-        }
+      .catch(error => {
+        AlertDialog.showModal({
+          title: 'Hata',
+          message: ErrorCode(error.code),
+        });
       });
   };
-
   return (
     <Container header title="Giriş Yap" goBackShow>
       <Form>
@@ -81,15 +91,16 @@ export default function LoginScreen(
           <CustomText color="secondary">Şifremi Unuttum</CustomText>
         </ForgotPassword>
         <View style={{marginBottom: 10}}>
-          <Button onPress={handleLogin} text="Giriş Yap" />
+          <Button onPress={login} text="Giriş Yap" />
         </View>
-        {/* <HorizontalLine>
+        <HorizontalLine>
           <OtherOptionContainer>
             <CustomText color="secondary">veya</CustomText>
           </OtherOptionContainer>
-        </HorizontalLine> */}
-        {/* <SocialMediaContainer>
+        </HorizontalLine>
+        <SocialMediaContainer>
           <SocialButton
+            onPress={() => {}}
             activeOpacity={0.8}
             theme={{
               background: '#395795',
@@ -106,13 +117,14 @@ export default function LoginScreen(
             </SocialButton>
           )}
           <SocialButton
+            onPress={signInWithGoogle}
             activeOpacity={0.8}
             theme={{
               background: '#E54134',
             }}>
             <GoogleSvg />
           </SocialButton>
-        </SocialMediaContainer> */}
+        </SocialMediaContainer>
         <RegisterContainer>
           <RegisterTextContainer>
             <CustomText color="secondary">Hesabınız yok mu?</CustomText>

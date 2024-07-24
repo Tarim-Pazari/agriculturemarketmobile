@@ -26,12 +26,7 @@ export default function BottomTabNavigator(
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: {
-          borderTopWidth: 0,
-          borderTopColor: '#fff',
 
-          position: 'absolute',
-        },
         tabBarActiveTintColor: iconColor,
         tabBarInactiveTintColor: inActiveIconColor,
         tabBarLabelStyle: {
@@ -54,7 +49,7 @@ export default function BottomTabNavigator(
         }}
         component={HomeScreen}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name="Menu"
         options={{
           tabBarIcon: ({color, size, focused}) => (
@@ -67,14 +62,14 @@ export default function BottomTabNavigator(
           tabBarLabel: 'Menü',
         }}
         component={MenuScreen}
-      /> */}
-      {/* {user === null ? (
+      />
+      {user === null ? (
         <Tab.Screen
-          name={'LoginScreen'}
+          name={'BottomLoginScreen'}
           listeners={{
             tabPress: e => {
               e.preventDefault();
-              props.navigation.navigate('LoginScreen');
+              props.navigation.navigate('LoginScreen' as never);
             },
           }}
           options={{
@@ -104,7 +99,7 @@ export default function BottomTabNavigator(
           }}
           component={UserScreen}
         />
-      )} */}
+      )}
     </Tab.Navigator>
   );
 }

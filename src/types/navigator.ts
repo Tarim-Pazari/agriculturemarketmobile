@@ -1,3 +1,4 @@
+import Cost from '../models/Cost';
 import ProductResponse from '../payload/response/ProductResponse';
 
 export type RootStackParamList = {
@@ -6,12 +7,15 @@ export type RootStackParamList = {
   LoginScreen: undefined;
   RegisterScreen: undefined;
   ProductScreen: {product: ProductResponse};
-  PriceTrackingScreen: undefined;
+  AddCostsScreen: undefined;
+  CostsScreen: undefined;
+  EditCostScreen: {item: Cost};
 };
 
 export type BottomTabParamList = {
   Home: undefined;
   Menu: undefined;
-  LoginScreen: undefined;
+  BottomLoginScreen: undefined;
   UserScreen: undefined;
+  RegisterScreen: undefined;
 };

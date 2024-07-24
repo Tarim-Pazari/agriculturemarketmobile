@@ -1,6 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit';
+import LoginResponse from '../../payload/response/LoginResponse';
 
-const INITIAL_STATE = {
+interface AuthState {
+  user?: LoginResponse | null;
+}
+const INITIAL_STATE: AuthState = {
   user: null,
 };
 const authSlice = createSlice({

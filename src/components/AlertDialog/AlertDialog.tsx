@@ -9,12 +9,13 @@ import Button from '../Button/Button';
 import styled from 'styled-components';
 import Divider from '../Divider/Divider';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faCheckCircle} from '@fortawesome/free-regular-svg-icons';
+import LottieView from 'lottie-react-native';
 import {
   faExclamationCircle,
   faWarning,
 } from '@fortawesome/free-solid-svg-icons';
 import CustomText from '../Text/Text';
+import {CheckAnimation} from '../../assets/lottie/LottieData';
 
 interface ModalProps {
   title?: string;
@@ -56,30 +57,34 @@ class AlertDialog {
                 </TitleContainer>
                 <Divider marginTop="10" marginBottom="10" />
               </View>
-              <View>
+              <View style={{marginVertical: 10}}>
                 <Text style={{textAlign: 'center'}}>
                   Çıkış yapmak istediğinize emin misiniz?
                 </Text>
               </View>
               <ButtonContainer>
-                <Button
-                  outline
-                  text="İptal"
-                  onPress={() => {
-                    ModalPortal.dismiss(id);
-                    this.ids.pop();
-                    resolve(false);
-                  }}
-                />
-                <Button
-                  text="Çıkış Yap"
-                  onPress={() => {
-                    onConfirm();
-                    ModalPortal.dismiss(id);
-                    this.ids.pop();
-                    resolve(true);
-                  }}
-                />
+                <ButtonView>
+                  <Button
+                    outline
+                    text="İptal"
+                    onPress={() => {
+                      ModalPortal.dismiss(id);
+                      this.ids.pop();
+                      resolve(false);
+                    }}
+                  />
+                </ButtonView>
+                <ButtonView>
+                  <Button
+                    text="Çıkış Yap"
+                    onPress={() => {
+                      onConfirm();
+                      ModalPortal.dismiss(id);
+                      this.ids.pop();
+                      resolve(true);
+                    }}
+                  />
+                </ButtonView>
               </ButtonContainer>
             </View>
           </ModalContent>
@@ -90,65 +95,21 @@ class AlertDialog {
     });
   }
 
-  showLoginModal() {
-    return new Promise(resolve => {
-      const id = ModalPortal.show(
-        <Modal
-          visible={true}
-          onTouchOutside={() => {
-            ModalPortal.dismiss(id);
-            this.ids.pop();
-            resolve(false);
-          }}
-          overlayBackgroundColor={'black'}
-          modalAnimation={
-            new SlideAnimation({
-              slideFrom: 'bottom',
-            })
-          }>
-          <ModalContent style={{backgroundColor: '#fff'}}>
-            <View style={{width: SIZES.width - 80}}>
-              <View>
-                <TitleContainer>
-                  <Title adjustsFontSizeToFit>Giriş Yap</Title>
-                </TitleContainer>
-                <Divider marginTop="10" marginBottom="10" />
-              </View>
-              <View>
-                <Text style={{textAlign: 'center'}}>
-                  Lütfen giriş yapmak için gerekli bilgileri giriniz.
-                </Text>
-              </View>
-              <ButtonContainer>
-                <Button
-                  text="Giriş Yap"
-                  onPress={() => {
-                    ModalPortal.dismiss(id);
-                    this.ids.pop();
-                    resolve(true);
-                  }}
-                />
-                <Button
-                  outline
-                  text="Kayıt Ol"
-                  onPress={() => {
-                    ModalPortal.dismiss(id);
-                    this.ids.pop();
-                    resolve(false);
-                  }}
-                />
-              </ButtonContainer>
-            </View>
-          </ModalContent>
-        </Modal>,
-      );
-
-      this.ids.push(id);
+  showLoginModal(onConfirm: () => void, onCancel: () => void) {
+    this.showModal({
+      title: 'Giriş Yap',
+      message: 'Giriş yapmak için lütfen üye girişi yapınız.',
+      onConfirmText: 'Giriş Yap',
+      onCancelText: 'Kayıt Ol',
+      onConfirm,
+      onCancel,
     });
   }
   showModal(props: ModalProps): Promise<boolean> {
-    console.log(props.isAutoClose, 'props.isAutoClose');
-    let isAutoHide = props?.isAutoClose ?? true;
+    let isAutoHide =
+      (props?.isAutoClose || props.onConfirm || props.onCancel
+        ? false
+        : true) ?? true;
     return new Promise(resolve => {
       const id = ModalPortal.show(
         <Modal
@@ -178,25 +139,32 @@ class AlertDialog {
               )}
               {props?.type && (
                 <>
-                  <IconContainer>
-                    <FontAwesomeIcon
-                      icon={
-                        props.type === 'success'
-                          ? faCheckCircle
-                          : props.type === 'error'
-                          ? faWarning
-                          : faExclamationCircle
-                      }
-                      size={50}
-                      color={
-                        props.type === 'success'
-                          ? 'green'
-                          : props.type === 'error'
-                          ? 'red'
-                          : 'orange'
-                      }
-                    />
-                  </IconContainer>
+                  {props.type === 'success' ? (
+                    <IconContainer>
+                      <LottieView
+                        source={CheckAnimation}
+                        style={{
+                          width: SIZES.width * 0.2,
+                          height: SIZES.width * 0.2,
+                        }}
+                        speed={1}
+                        autoPlay
+                        loop={false}
+                      />
+                    </IconContainer>
+                  ) : (
+                    <IconContainer>
+                      <FontAwesomeIcon
+                        icon={
+                          props.type === 'error'
+                            ? faWarning
+                            : faExclamationCircle
+                        }
+                        size={50}
+                        color={props.type === 'error' ? 'red' : 'orange'}
+                      />
+                    </IconContainer>
+                  )}
                 </>
               )}
               {props.message ? (
@@ -207,28 +175,31 @@ class AlertDialog {
               {
                 <ButtonContainer>
                   {props.onCancel && (
-                    <Button
-                      outline
-                      text={props.onCancelText || 'İptal'}
-                      onPress={() => {
-                        ModalPortal.dismiss(id);
-                        this.ids.pop();
-                        resolve(false);
-                        props.onCancel && props.onCancel();
-                      }}
-                    />
+                    <ButtonView>
+                      <Button
+                        outline
+                        text={props.onCancelText || 'İptal'}
+                        onPress={() => {
+                          ModalPortal.dismiss(id);
+                          this.ids.pop();
+                          resolve(false);
+                          props.onCancel && props.onCancel();
+                        }}
+                      />
+                    </ButtonView>
                   )}
                   {props.onConfirm && (
-                    <Button
-                      text={props.onConfirmText || 'Onayla'}
-                      style={{flex: 1}}
-                      onPress={() => {
-                        ModalPortal.dismiss(id);
-                        this.ids.pop();
-                        resolve(false);
-                        props.onConfirm && props.onConfirm();
-                      }}
-                    />
+                    <ButtonView>
+                      <Button
+                        text={props.onConfirmText || 'Tamam'}
+                        onPress={() => {
+                          ModalPortal.dismiss(id);
+                          this.ids.pop();
+                          resolve(false);
+                          props.onConfirm && props.onConfirm();
+                        }}
+                      />
+                    </ButtonView>
                   )}
                 </ButtonContainer>
               }
@@ -242,7 +213,7 @@ class AlertDialog {
           ModalPortal.dismiss(id);
           this.ids.pop();
           resolve(false);
-        }, 2000);
+        }, 2500);
       }
     });
   }
@@ -291,5 +262,7 @@ const ButtonContainer = styled(View)`
 const IconContainer = styled(View)`
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+`;
+const ButtonView = styled(View)`
+  flex: 1;
 `;

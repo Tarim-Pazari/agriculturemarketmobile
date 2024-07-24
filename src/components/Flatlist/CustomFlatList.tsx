@@ -90,7 +90,7 @@ export default function CustomFlatList(props: CustomListProps) {
             alignItems: 'center',
             height: Dimensions.get('window').height,
           }}>
-          <CustomText fontSizes="h4" color="default">
+          <CustomText center fontSizes="body6" color="default">
             {props.notFoundText || 'Veri bulunamadı.'}
           </CustomText>
         </View>

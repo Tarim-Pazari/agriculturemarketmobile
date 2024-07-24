@@ -8,11 +8,11 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistor, store} from './src/store';
 import 'react-native-gesture-handler';
-import './src/lang/i18n';
-import React, {useEffect} from 'react';
-import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import React from 'react';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import dayjs from 'dayjs';
 import 'dayjs/locale/tr';
+import './src/lang/i18n';
 LogBox.ignoreAllLogs();
 dayjs.locale('tr');
 LocaleConfig.locales['tr'] = {
@@ -57,7 +57,10 @@ LocaleConfig.locales['tr'] = {
   today: 'Bugün',
 };
 LocaleConfig.defaultLocale = 'tr';
-
+GoogleSignin.configure({
+  webClientId:
+    '1056832416693-dmdfv28go5aa2gffi8oenkrmuncojq1k.apps.googleusercontent.com',
+});
 const TarimPazari = () => {
   return (
     <Provider store={store}>

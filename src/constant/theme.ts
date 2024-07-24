@@ -53,3 +53,9 @@ export const COLORS = {
   link: '#e78577',
   grey: '#868182',
 };
+export const FONTWEIGHT = {
+  bold: 'bold',
+  normal: 'normal',
+  light: 'light',
+  thin: '100',
+};

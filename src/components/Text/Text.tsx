@@ -1,7 +1,7 @@
 import {View, Text, TextProps, StyleProp, TextStyle} from 'react-native';
 import useThemeColors from '../../constant/useColor';
 import {COLORS, FONTSIZES} from '../../constant/theme';
-import {ColorType, FontSizeType} from '../../types/type';
+import {ColorType, FontSizeType, FontWeightType} from '../../types/type';
 
 interface CustomTextProps extends TextProps {
   children: React.ReactNode;
@@ -12,6 +12,7 @@ interface CustomTextProps extends TextProps {
   left?: boolean;
   right?: boolean;
   sx?: StyleProp<TextStyle>;
+  fontWeight?: FontWeightType;
 }
 export default function CustomText(props: CustomTextProps) {
   const colors = useThemeColors();
@@ -25,6 +26,7 @@ export default function CustomText(props: CustomTextProps) {
           fontSize: props.fontSizes
             ? FONTSIZES[props.fontSizes]
             : FONTSIZES.default,
+          fontWeight: props.fontWeight ?? 'normal',
         },
       ]}
       {...props}>
