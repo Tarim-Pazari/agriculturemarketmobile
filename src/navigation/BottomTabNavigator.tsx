@@ -84,22 +84,7 @@ export default function BottomTabNavigator(
           }}
           component={LoginScreen}
         />
-      ) : (
-        <Tab.Screen
-          name={'UserScreen'}
-          options={{
-            tabBarIcon: ({color, size, focused}) => (
-              <FontAwesomeIcon
-                icon={faUser}
-                size={20}
-                color={focused ? iconColor : inActiveIconColor}
-              />
-            ),
-            tabBarLabel: 'Profil',
-          }}
-          component={UserScreen}
-        />
-      )}
+      ) : null}
     </Tab.Navigator>
   );
 }

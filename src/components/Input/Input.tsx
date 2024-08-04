@@ -129,7 +129,7 @@ const CustomInput = styled(TextInput)`
   border-radius: 10px;
   background-color: #fff;
   color: #143722;
-  height: 45px;
+
   border: 1px solid ${props => props.theme.borderColor};
 `;
 const IconLeft = styled(FontAwesomeIcon)`

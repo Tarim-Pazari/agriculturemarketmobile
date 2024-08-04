@@ -11,10 +11,11 @@ import {faRightFromBracket} from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 export default function UserScreen() {
   const {user} = useSelector((state: RootState) => state.auth);
+
   return (
     <Container p={10} header title="Profilim">
       <View style={{marginBottom: 10}}>
-        <CustomText>{user?.fullName}</CustomText>
+        <CustomText>{user?.firstName}</CustomText>
       </View>
       {user != null && (
         <Footer>

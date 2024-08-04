@@ -51,7 +51,7 @@ export const COLORS = {
   black: '#000',
   white: '#fff',
   link: '#e78577',
-  grey: '#868182',
+  grey: '#9B9B9B',
 };
 export const FONTWEIGHT = {
   bold: 'bold',

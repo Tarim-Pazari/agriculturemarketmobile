@@ -27,7 +27,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.1056832416693-bipfgpfaa75pc9dkkcv47qhdcsih6n61</string>
+				<string>com.googleusercontent.apps.1056832416693-dbfip7q8l6ios6pqh46ceci9lis6bufa</string>
 			</array>
 		</dict>
 	</array>
@@ -53,6 +53,13 @@
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+			<key>tarimpazari.app</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
 				<true/>
 			</dict>
 		</dict>

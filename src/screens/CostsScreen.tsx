@@ -38,7 +38,7 @@ export default function CostsScreen(props: any) {
         <Container>
           <CustomFlatList
             data={costs}
-            notFoundText='Maliyet Bulunamadı Yeni Maliyet Eklemek İçin "Maliyet Ekle" Butonuna Tıklayınız.'
+            notFoundText="Maliyet bulunamadı. Maliyet eklemek için Maliyet Ekle butonuna tıklayınız."
             renderItem={(item, index) => {
               return (
                 <CostItemCard

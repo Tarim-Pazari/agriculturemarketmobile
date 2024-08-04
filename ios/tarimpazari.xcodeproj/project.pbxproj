@@ -13,7 +13,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		305D72E0ED8E6FEEA58303B6 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 274A97BA32A46B3B4010EA9E /* PrivacyInfo.xcprivacy */; };
 		3BD3976B7A19BDB53A6D4997 /* Pods_tarimpazari.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6B7749405E8B3860711594F /* Pods_tarimpazari.framework */; };
-		67EEE3E32C4EE56800EE3779 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67EEE3E22C4EE56800EE3779 /* GoogleService-Info.plist */; };
+		67EB046E2C5E4918001D7F10 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67EB046D2C5E4918001D7F10 /* GoogleService-Info.plist */; };
 		7B90E6EE8C8DA8B206BE9277 /* Pods_tarimpazari_tarimpazariTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F7AD3CE27D5F096B651723A /* Pods_tarimpazari_tarimpazariTests.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -45,7 +45,7 @@
 		5709B34CF0A7D63546082F79 /* Pods-tarimpazari.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tarimpazari.release.xcconfig"; path = "Target Support Files/Pods-tarimpazari/Pods-tarimpazari.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-tarimpazari-tarimpazariTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tarimpazari-tarimpazariTests.debug.xcconfig"; path = "Target Support Files/Pods-tarimpazari-tarimpazariTests/Pods-tarimpazari-tarimpazariTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6748AAB42C0B9FAC00F12711 /* tarimpazari.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = tarimpazari.entitlements; path = tarimpazari/tarimpazari.entitlements; sourceTree = "<group>"; };
-		67EEE3E22C4EE56800EE3779 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "tarimpazari/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		67EB046D2C5E4918001D7F10 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = tarimpazari/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-tarimpazari-tarimpazariTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tarimpazari-tarimpazariTests.release.xcconfig"; path = "Target Support Files/Pods-tarimpazari-tarimpazariTests/Pods-tarimpazari-tarimpazariTests.release.xcconfig"; sourceTree = "<group>"; };
 		B6B7749405E8B3860711594F /* Pods_tarimpazari.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tarimpazari.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,7 +92,7 @@
 		13B07FAE1A68108700A75B9A /* tarimpazari */ = {
 			isa = PBXGroup;
 			children = (
-				67EEE3E22C4EE56800EE3779 /* GoogleService-Info.plist */,
+				67EB046D2C5E4918001D7F10 /* GoogleService-Info.plist */,
 				6748AAB42C0B9FAC00F12711 /* tarimpazari.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -253,7 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				67EEE3E32C4EE56800EE3779 /* GoogleService-Info.plist in Resources */,
+				67EB046E2C5E4918001D7F10 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				305D72E0ED8E6FEEA58303B6 /* PrivacyInfo.xcprivacy in Resources */,
 			);
@@ -493,7 +493,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = tarimpazari/tarimpazari.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 49WJ53SG92;
+				DEVELOPMENT_TEAM = AVX2YCYF86;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = tarimpazari/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Tarım Pazarı";
@@ -523,7 +523,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = tarimpazari/tarimpazari.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 49WJ53SG92;
+				DEVELOPMENT_TEAM = AVX2YCYF86;
 				INFOPLIST_FILE = tarimpazari/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Tarım Pazarı";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -627,10 +627,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -713,10 +710,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

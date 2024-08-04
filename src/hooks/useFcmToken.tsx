@@ -39,6 +39,7 @@ export default function useFcmToken() {
     messaging()
       .getToken()
       .then(token => {
+        console.log(token);
         setFcmToken(token);
       })
       .catch(e => console.log(e));

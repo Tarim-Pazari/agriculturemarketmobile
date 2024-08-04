@@ -25,6 +25,7 @@ export default function FirebaseNotification() {
       onNotificationOpenedApp();
     };
   }, []);
+
   const getNotificationContent = (data: any, remoteMessage?: any) => {
     let notificationType = data?.notificationType;
     let notificationTitle = remoteMessage?.notification?.title;

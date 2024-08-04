@@ -147,6 +147,8 @@ const CardContainer = styled(TouchableOpacity)`
   margin-horizontal: 10px;
   box-shadow: 3px 3px 3px #ddd;
   background-color: #fff;
+  z-index: 1;
+  position: relative;
 `;
 const ProductContainer = styled(View)`
   flex: 1;

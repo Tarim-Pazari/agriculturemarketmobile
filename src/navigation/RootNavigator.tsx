@@ -36,6 +36,7 @@ const RootNavigator = () => {
       } as LoginResponse;
       if (user) {
         const getUserInfo = await userRepository.getUser(user.uid);
+
         dispatch(AuthActions.setUser(entity));
       } else {
         dispatch(AuthActions.setUser(null));

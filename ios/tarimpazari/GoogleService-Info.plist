@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1056832416693-bipfgpfaa75pc9dkkcv47qhdcsih6n61.apps.googleusercontent.com</string>
+	<string>1056832416693-dbfip7q8l6ios6pqh46ceci9lis6bufa.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1056832416693-bipfgpfaa75pc9dkkcv47qhdcsih6n61</string>
+	<string>com.googleusercontent.apps.1056832416693-dbfip7q8l6ios6pqh46ceci9lis6bufa</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBskTvvt6B8WuEzfqtEY9shuAZM8ywZ8a4</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>org.agriculturemarket</string>
+	<string>org.tarimpazari</string>
 	<key>PROJECT_ID</key>
 	<string>agriculturemarket-79790</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1056832416693:ios:5991d127c1937462b547fc</string>
+	<string>1:1056832416693:ios:653ef4be2288f8bbb547fc</string>
 </dict>
 </plist>

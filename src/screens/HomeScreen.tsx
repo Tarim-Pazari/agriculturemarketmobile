@@ -2,17 +2,19 @@ import {
   View,
   SafeAreaView,
   ActivityIndicator,
-  TouchableOpacity,
   Platform,
-  Dimensions,
-  Keyboard,
   Pressable,
+  TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
-import {CalendarProvider, WeekCalendar} from 'react-native-calendars';
+import {Calendar, CalendarProvider, WeekCalendar} from 'react-native-calendars';
 import dayjs from 'dayjs';
 import Input from '../components/Input/Input';
-import {faSearch} from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleLeft,
+  faAngleRight,
+  faSearch,
+} from '@fortawesome/free-solid-svg-icons';
 import ProductCard from '../components/ProductCard/ProductCard';
 
 import AlertDialog from '../components/AlertDialog/AlertDialog';
@@ -26,7 +28,11 @@ import CustomFlatList from '../components/Flatlist/CustomFlatList';
 
 import SelectCity from '../components/SelectCity/SelectCity';
 import CustomText from '../components/Text/Text';
-import BottomSheetComponent from '../components/BottomSheet/BottomSheetComponent';
+import CustomBottomSheet, {
+  BottomSheetRef,
+} from '../components/BottomSheet/CustomBottomSheet';
+import CityListBottomSheet from '../components/BottomSheet/CityListBottomSheet';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 export default function HomeScreen(
   props: NativeStackScreenProps<RootStackParamList>,
@@ -37,10 +43,11 @@ export default function HomeScreen(
   const [items, setItems] = useState<Array<DailyPriceResponse>>([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
-  const refRBSheet = useRef<any>(null);
+  const [calendarType, setCalendarType] = useState<'week' | 'month'>('week');
   const [useGetDailyPriceByIds] = useGetDailyPriceByIdsMutation();
 
-  const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
+  const locationBottomSheetRef = useRef<BottomSheetRef>(null);
+
   useEffect(() => {
     loadData();
   }, [selectedDay, userSelection]);
@@ -76,53 +83,156 @@ export default function HomeScreen(
     <View style={{flex: 1}}>
       <SafeAreaView
         style={{
-          height: Platform.OS === 'ios' ? 210 : 160,
+          height:
+            Platform.OS === 'ios'
+              ? calendarType === 'week'
+                ? 210
+                : 'auto'
+              : calendarType === 'week'
+              ? 160
+              : 'auto',
           backgroundColor: '#1E8604',
         }}>
-        <Pressable
-          onPress={() => {
-            setIsBottomSheetVisible(true);
-          }}>
-          <CustomText fontSizes="h5" center color="white">
-            {dayjs(selectedDay).format('MMMM YYYY')}
-          </CustomText>
-        </Pressable>
-        <CalendarProvider date={selectedDay}>
-          <WeekCalendar
-            date={selectedDay}
-            onDayPress={day => {
-              let maxDate = dayjs().format('YYYY-MM-DD');
-              let selectedDate = dayjs(day.dateString).format('YYYY-MM-DD');
-              if (selectedDate > maxDate) {
-                AlertDialog.showModal({
-                  title: 'Uyarı',
-                  message: 'İleri tarih seçilemez.',
-                });
-                return;
-              }
-              setSelectedDay(day.dateString);
+        {calendarType === 'week' && (
+          <Pressable
+            onPress={() => {
+              setCalendarType(calendarType === 'week' ? 'month' : 'week');
+            }}>
+            <CustomText fontSizes="h5" center color="white">
+              {dayjs(selectedDay).format('MMMM YYYY')}
+            </CustomText>
+          </Pressable>
+        )}
+        {calendarType === 'week' ? (
+          <CalendarProvider
+            onDateChanged={date => {
+              setSelectedDay(date);
             }}
-            firstDay={1}
+            date={selectedDay}>
+            <WeekCalendar
+              date={selectedDay}
+              onDayPress={day => {
+                let maxDate = dayjs().format('YYYY-MM-DD');
+                let selectedDate = dayjs(day.dateString).format('YYYY-MM-DD');
+                if (selectedDate > maxDate) {
+                  AlertDialog.showModal({
+                    title: 'Uyarı',
+                    message: 'İleri tarih seçilemez.',
+                  });
+                  return;
+                }
+                setSelectedDay(day.dateString);
+              }}
+              firstDay={1}
+              theme={{
+                calendarBackground: 'transparent',
+                backgroundColor: 'transparent',
+                dayTextColor: '#fff',
+                textSectionTitleColor: '#fff',
+                selectedDayBackgroundColor: '#72B262',
+                textDisabledColor: '#9B9B9B',
+              }}
+            />
+          </CalendarProvider>
+        ) : (
+          <Calendar
+            initialDate={selectedDay}
+            customHeader={(date: any) => {
+              return (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    backgroundColor: '#1E8604',
+                    paddingHorizontal: 20,
+                  }}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      date.addMonth(-1);
+                    }}>
+                    <FontAwesomeIcon
+                      icon={faAngleLeft}
+                      color="white"
+                      size={20}
+                    />
+                  </TouchableOpacity>
+                  <Pressable
+                    onPress={() => {
+                      setCalendarType('week');
+                    }}>
+                    <CustomText fontSizes="h5" center color="white">
+                      {dayjs(date.month).format('MMMM YYYY')}
+                    </CustomText>
+                  </Pressable>
+
+                  <TouchableOpacity
+                    onPress={() => {
+                      date.addMonth(1);
+                    }}>
+                    <FontAwesomeIcon
+                      icon={faAngleRight}
+                      color="white"
+                      size={20}
+                    />
+                  </TouchableOpacity>
+                </View>
+              );
+            }}
+            dayComponent={(props: any) => {
+              const {date, state} = props;
+              let textColor = 'white';
+              if (state === 'disabled') {
+                textColor = 'grey';
+              }
+              return (
+                <TouchableOpacity
+                  onPress={() => {
+                    let maxDate = dayjs().format('YYYY-MM-DD');
+                    let selectedDate = dayjs(date.dateString).format(
+                      'YYYY-MM-DD',
+                    );
+                    if (selectedDate > maxDate) {
+                      AlertDialog.showModal({
+                        title: 'Uyarı',
+                        message: 'İleri tarih seçilemez.',
+                      });
+                      return;
+                    }
+                    setSelectedDay(date.dateString);
+                  }}
+                  style={{
+                    backgroundColor:
+                      date.dateString === selectedDay
+                        ? '#72B262'
+                        : 'transparent',
+                    borderRadius: 10,
+                    height: 30,
+                    width: 30,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <CustomText center color={textColor as any}>
+                    {date.day}
+                  </CustomText>
+                </TouchableOpacity>
+              );
+            }}
             theme={{
               calendarBackground: 'transparent',
               backgroundColor: 'transparent',
               dayTextColor: '#fff',
-              textSectionTitleColor: '#fff',
+
               selectedDayBackgroundColor: '#72B262',
+              selectedDayTextColor: '#fff',
             }}
           />
-        </CalendarProvider>
+        )}
+
         <View style={{marginTop: 10, marginBottom: 7, marginHorizontal: 10}}>
           <Input
-            onFocus={() => {
-              AlertDialog.showModal({
-                title: 'Uyarı',
-                message: 'Lütfen konum seçiniz.',
-                type: 'success',
-              });
-            }}
+            onFocus={() => {}}
             enableFocusBorder={false}
-            inputSize="sm"
             autoFocus={false}
             style={{backgroundColor: '#fff'}}
             icon={faSearch}
@@ -132,8 +242,13 @@ export default function HomeScreen(
           />
         </View>
       </SafeAreaView>
-      <SelectCity refRBSheet={refRBSheet} />
-      <View style={{flex: 1, marginBottom: Platform.OS === 'ios' ? 0 : 80}}>
+      <SelectCity locationBottomSheetRef={locationBottomSheetRef} />
+      <View
+        style={{
+          flex: 1,
+
+          marginBottom: Platform.OS === 'ios' ? 0 : 80,
+        }}>
         <View
           style={
             loading
@@ -147,21 +262,7 @@ export default function HomeScreen(
               handleRefresh={loadData}
               notFoundText="Fiyat listesi bulunamadı."
               renderItem={(item, index) => {
-                return (
-                  <ProductCard
-                    onPress={() => {
-                      // props.navigation.navigate('ProductScreen', {
-                      //   product: {
-                      //     id: item.productId,
-                      //     name: item.name,
-                      //     icon: item.icon,
-                      //     unit: item.unit,
-                      //   },
-                      // });
-                    }}
-                    item={item}
-                  />
-                );
+                return <ProductCard item={item} />;
               }}
               data={items?.filter?.(item => {
                 return item?.name
@@ -172,13 +273,11 @@ export default function HomeScreen(
           )}
         </View>
       </View>
-      <BottomSheetComponent
-        enableClose
-        isOpen={isBottomSheetVisible}
-        handleOpen={() => {
-          setIsBottomSheetVisible(false);
+      <CityListBottomSheet
+        close={() => {
+          locationBottomSheetRef.current?.close();
         }}
-        snapPoints={['50%']}
+        ref={locationBottomSheetRef}
       />
     </View>
   );

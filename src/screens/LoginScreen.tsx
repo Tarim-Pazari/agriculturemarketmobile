@@ -1,5 +1,5 @@
 import {View, TouchableOpacity, Platform} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import Container from '../components/Container/Container';
 import Input from '../components/Input/Input';
@@ -22,7 +22,9 @@ import FormContainer, {FormContainerRef} from 'react-native-form-container';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import ErrorCode from '../firebase/ErrorCode';
-
+import appleAuth, {
+  AppleButton,
+} from '@invertase/react-native-apple-authentication';
 export default function LoginScreen(props: any) {
   const dispatch: AppDispatch = useDispatch();
   const [loginRequest, setLoginRequest] = useState<LoginRequest>({
@@ -42,22 +44,46 @@ export default function LoginScreen(props: any) {
         accessToken,
       );
       await auth().signInWithCredential(googleCredential);
-      props.navigation.navigate('Home');
-    } catch (error) {
-      console.error(error);
-    }
+      props.navigation.goBack();
+    } catch (error) {}
   };
   const login = () => {
+    let result = ref.current?.validate({
+      email: 'E-posta adresi boş bırakılamaz',
+      password: 'Şifre boş bırakılamaz',
+    });
+    if (result) {
+      auth()
+        .signInWithEmailAndPassword(loginRequest.email, loginRequest.password)
+        .then(userCredential => {
+          props.navigation.goBack();
+        })
+        .catch(error => {
+          AlertDialog.showModal({
+            title: 'Hata',
+            message: ErrorCode(error.code),
+          });
+        });
+    }
+  };
+  const configureAppleSignIn = async () => {
+    const appleAuthRequestResponse = await appleAuth.performRequest({
+      requestedOperation: appleAuth.Operation.LOGIN,
+      requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+    });
+    const {identityToken, nonce} = appleAuthRequestResponse;
+    const appleCredential = auth.AppleAuthProvider.credential(
+      identityToken,
+      nonce,
+    );
+
     auth()
-      .signInWithEmailAndPassword(loginRequest.email, loginRequest.password)
+      .signInWithCredential(appleCredential)
       .then(userCredential => {
         props.navigation.goBack();
       })
       .catch(error => {
-        AlertDialog.showModal({
-          title: 'Hata',
-          message: ErrorCode(error.code),
-        });
+        console.error(error);
       });
   };
   return (
@@ -93,22 +119,16 @@ export default function LoginScreen(props: any) {
         <View style={{marginBottom: 10}}>
           <Button onPress={login} text="Giriş Yap" />
         </View>
+
         <HorizontalLine>
           <OtherOptionContainer>
             <CustomText color="secondary">veya</CustomText>
           </OtherOptionContainer>
         </HorizontalLine>
         <SocialMediaContainer>
-          <SocialButton
-            onPress={() => {}}
-            activeOpacity={0.8}
-            theme={{
-              background: '#395795',
-            }}>
-            <FacebookSvg />
-          </SocialButton>
           {Platform.OS === 'ios' && (
             <SocialButton
+              onPress={configureAppleSignIn}
               activeOpacity={0.8}
               theme={{
                 background: '#000',

@@ -77,7 +77,6 @@ export default function EditCostScreen(
       .updateCost(costDto)
       .then(() => {
         AlertDialog.showModal({
-          title: 'Başarılı',
           type: 'success',
           message: 'Maliyet başarıyla güncellendi.',
           onConfirm() {
