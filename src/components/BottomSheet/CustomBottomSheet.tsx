@@ -20,6 +20,7 @@ interface BottomSheetComponentProps {
   children?: React.ReactNode;
   snapPoints: string[];
   indicator?: boolean;
+  onClose?: () => void;
 }
 
 export interface BottomSheetRef {
@@ -29,7 +30,7 @@ export interface BottomSheetRef {
 
 const CustomBottomSheet = forwardRef<BottomSheetRef, BottomSheetComponentProps>(
   (props, ref) => {
-    const {children, snapPoints, indicator = true} = props;
+    const {children, snapPoints, indicator = true, onClose} = props;
     const bottomSheetRef = useRef<BottomSheet>(null);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -41,6 +42,7 @@ const CustomBottomSheet = forwardRef<BottomSheetRef, BottomSheetComponentProps>(
         setIsOpen(true);
       },
       close: () => {
+        onClose && onClose();
         bottomSheetRef.current?.close();
         setIsOpen(false);
       },

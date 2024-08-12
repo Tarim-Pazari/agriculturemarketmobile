@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import React, {forwardRef, useEffect, useState} from 'react';
 import CustomBottomSheet, {BottomSheetRef} from './CustomBottomSheet';
 import CustomFlatList from '../Flatlist/CustomFlatList';
@@ -51,7 +51,13 @@ const CityListBottomSheet = forwardRef<
   };
 
   return (
-    <CustomBottomSheet ref={ref} snapPoints={['50%']}>
+    <CustomBottomSheet
+      onClose={() => {
+        console.log('onClose');
+        setSelectedCity({} as CityResponse);
+      }}
+      ref={ref}
+      snapPoints={['50%']}>
       <CustomFlatList
         renderItem={item => (
           <LanguageButton
@@ -100,6 +106,7 @@ const LanguageButton = styled(TouchableOpacity)`
   margin-top: 10px;
   padding: 10px;
   border-radius: 10px;
-  background-color: #fff;
+  background-color: #f5f5f5;
+
   justify-content: space-between;
 `;

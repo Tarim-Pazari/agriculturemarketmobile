@@ -18,6 +18,7 @@ class CostRepository {
   async addCost(cost: Cost) {
     const docId = this.costCollection.doc().id;
     cost.id = docId;
+    cost.total = 10;
     return this.costCollection.doc(docId).set(cost);
   }
 
