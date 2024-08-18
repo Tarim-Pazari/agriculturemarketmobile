@@ -1,19 +1,13 @@
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  ActivityIndicator,
-  Platform,
-} from 'react-native';
+import {View, TextInput, TouchableOpacity, Platform} from 'react-native';
 import styled from 'styled-components';
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faEye, faEyeSlash, faUser} from '@fortawesome/free-regular-svg-icons';
+import {faEye, faEyeSlash} from '@fortawesome/free-regular-svg-icons';
 import useThemeColors from '../../constant/useColor';
 import {useState} from 'react';
 import CustomText from '../Text/Text';
-
-import {FormInputProps, InputProps} from 'react-native-form-container';
+import CurrencyInput from 'react-native-currency-input';
+import {FormInputProps} from 'react-native-form-container';
 
 export default function Input({
   iconPosition = 'left',
@@ -24,7 +18,10 @@ export default function Input({
 
   required = false,
   ...props
-}: FormInputProps) {
+}: FormInputProps & {
+  priceInput?: boolean;
+  onChangeValue?: (value: any) => void;
+}) {
   const colors = useThemeColors();
   const [passwordShow, setPasswordShow] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -59,37 +56,71 @@ export default function Input({
           color={colors.iconColor}
         />
       )}
-      <CustomInput
-        autoFocus={false}
-        placeholderTextColor={colors.inputPlaceholder}
-        {...props}
-        secureTextEntry={props.secureTextEntry && !passwordShow}
-        onFocus={event => {
-          handleFocus();
-          props.onFocus && props.onFocus(event);
-        }}
-        onBlur={event => {
-          handleBlur();
-          props.onBlur && props.onBlur(event);
-        }}
-        theme={{
-          size:
-            inputSize === 'sm'
-              ? '10px'
-              : Platform.OS === 'android'
-              ? '10px'
-              : '15px',
-          left:
-            iconPosition === 'left' && icon !== undefined
-              ? inputPaddingHorizontal
-              : size,
-          right:
-            iconPosition === 'right' && icon !== undefined
-              ? inputPaddingHorizontal
-              : size,
-          borderColor: isFocused ? colors.activeBorder : colors.inputBorder,
-        }}
-      />
+      {props.priceInput ? (
+        <PriceInput
+          autoFocus={false}
+          placeholderTextColor={colors.inputPlaceholder}
+          {...(props as any)}
+          onFocus={event => {
+            handleFocus();
+            props.onFocus && props.onFocus(event);
+          }}
+          onBlur={event => {
+            handleBlur();
+            props.onBlur && props.onBlur(event);
+          }}
+          theme={{
+            size:
+              inputSize === 'sm'
+                ? '10px'
+                : Platform.OS === 'android'
+                ? '10px'
+                : '15px',
+            left:
+              iconPosition === 'left' && icon !== undefined
+                ? inputPaddingHorizontal
+                : size,
+            right:
+              iconPosition === 'right' && icon !== undefined
+                ? inputPaddingHorizontal
+                : size,
+            borderColor: isFocused ? colors.activeBorder : colors.inputBorder,
+          }}
+        />
+      ) : (
+        <CustomInput
+          autoFocus={false}
+          placeholderTextColor={colors.inputPlaceholder}
+          {...props}
+          secureTextEntry={props.secureTextEntry && !passwordShow}
+          onFocus={event => {
+            handleFocus();
+            props.onFocus && props.onFocus(event);
+          }}
+          onBlur={event => {
+            handleBlur();
+            props.onBlur && props.onBlur(event);
+          }}
+          theme={{
+            size:
+              inputSize === 'sm'
+                ? '10px'
+                : Platform.OS === 'android'
+                ? '10px'
+                : '15px',
+            left:
+              iconPosition === 'left' && icon !== undefined
+                ? inputPaddingHorizontal
+                : size,
+            right:
+              iconPosition === 'right' && icon !== undefined
+                ? inputPaddingHorizontal
+                : size,
+            borderColor: isFocused ? colors.activeBorder : colors.inputBorder,
+          }}
+        />
+      )}
+
       {props.secureTextEntry && (
         <PasswordIconButton
           theme={{
@@ -129,7 +160,15 @@ const CustomInput = styled(TextInput)`
   border-radius: 10px;
   background-color: #fff;
   color: #143722;
-
+  border: 1px solid ${props => props.theme.borderColor};
+`;
+const PriceInput = styled(CurrencyInput)`
+  padding: ${props => props.theme.size} ${props => props.theme.right}
+    ${props => props.theme.size} ${props => props.theme.left};
+  width: 100%;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #143722;
   border: 1px solid ${props => props.theme.borderColor};
 `;
 const IconLeft = styled(FontAwesomeIcon)`

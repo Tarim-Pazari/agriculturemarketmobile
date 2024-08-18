@@ -1,17 +1,32 @@
 class Helper {
-  formatPrice = (price: string) => {
+  formatPrice(price: string) {
     if (!price) return '';
-    const cleaned = price.replace(/[^0-9.]/g, '');
-    const [integerPart, decimalPart] = cleaned.split('.');
+
+    // Sadece sayıları ve virgülü bırak, noktaları virgüle çevir
+    const cleaned = price;
+
+    // Tam sayı ve kuruş kısımlarını ayır
+    const parts = cleaned.split(',');
+    const integerPart = parts[0] || '';
+    let decimalPart = parts[1] || '';
+
+    // Tam sayı kısmını binlik gruplara ayır (noktalar ile)
     const formattedIntegerPart = integerPart.replace(
       /\B(?=(\d{3})+(?!\d))/g,
-      ',',
+      '.',
     );
-    const formattedDecimalPart = decimalPart ? decimalPart.substring(0, 2) : '';
-    return formattedDecimalPart
-      ? `${formattedIntegerPart}.${formattedDecimalPart}`
+
+    // Kuruş kısmını 2 hane ile sınırlı tut
+    if (decimalPart.length > 2) {
+      decimalPart = decimalPart.substring(0, 2);
+    }
+
+    // Kuruş varsa, formatla ve ekle
+    return decimalPart
+      ? `${formattedIntegerPart},${decimalPart}`
       : formattedIntegerPart;
-  };
+  }
+
   formatNumber = (number: number): number => {
     let formattedNumber = number.toString().replace(/,/g, '');
     return Number(formattedNumber);

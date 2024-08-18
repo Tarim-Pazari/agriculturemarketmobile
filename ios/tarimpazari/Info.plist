@@ -20,6 +20,8 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>GADApplicationIdentifier</key>
+    <string>ca-app-pub-6278614290280219~5628596855</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

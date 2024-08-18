@@ -127,6 +127,7 @@ export default function AddCostsScreen(props: any) {
                 </ColItem>
                 <ColItem theme={{flex: 0.7}}>
                   <Input
+                    priceInput
                     id={`cost-price-${index}`}
                     required
                     keyboardType="numeric"
@@ -135,12 +136,8 @@ export default function AddCostsScreen(props: any) {
                         handleCostChange(index, 'price', '');
                       }
                     }}
-                    onChangeText={value =>
-                      handleCostChange(
-                        index,
-                        'price',
-                        Helper.formatPrice(value),
-                      )
+                    onChangeValue={value =>
+                      handleCostChange(index, 'price', value as any)
                     }
                     value={item.price.toString()}
                     placeholder="Fiyat"

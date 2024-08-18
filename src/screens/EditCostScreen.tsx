@@ -131,22 +131,18 @@ export default function EditCostScreen(
                 </ColItem>
                 <ColItem theme={{flex: 0.7}}>
                   <Input
+                    priceInput={true}
                     id={`cost-price-${index}`}
                     required
                     keyboardType="numeric"
                     onFocus={() => {
-                      if (item.price?.toString() === '0') {
-                        handleCostChange(index, 'price', '');
-                      }
+                      if (item.price === 0)
+                        handleCostChange(index, 'price', 0 as any);
                     }}
-                    onChangeText={value =>
-                      handleCostChange(
-                        index,
-                        'price',
-                        Helper.formatPrice(value),
-                      )
+                    onChangeValue={value =>
+                      handleCostChange(index, 'price', value as any)
                     }
-                    value={item.price.toString()}
+                    value={item.price?.toString()}
                     placeholder="Fiyat"
                   />
                 </ColItem>
@@ -162,6 +158,9 @@ export default function EditCostScreen(
                         message: 'Maliyeti silmek istediğinize emin misiniz?',
                         onConfirm() {
                           handleDeleteCostItem(index);
+                          if (costDto.items.length === 0) {
+                            handleDeleteCost();
+                          }
                         },
                         onCancel() {
                           AlertDialog.dismiss();

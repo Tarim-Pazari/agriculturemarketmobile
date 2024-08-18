@@ -14,9 +14,7 @@ import {RootState} from '../store';
 import CustomFlatList from '../components/Flatlist/CustomFlatList';
 
 import SelectCity from '../components/SelectCity/SelectCity';
-import CustomBottomSheet, {
-  BottomSheetRef,
-} from '../components/BottomSheet/CustomBottomSheet';
+import {BottomSheetRef} from '../components/BottomSheet/CustomBottomSheet';
 import CityListBottomSheet from '../components/BottomSheet/CityListBottomSheet';
 import CalendarComponent from '../components/CalendarComponents';
 
@@ -50,6 +48,7 @@ export default function HomeScreen(
         .unwrap()
         .then(response => {
           if (response?.list?.length !== 0) {
+            console.log(response.list[0]);
             setItems(response.list);
           } else {
             setItems([]);
@@ -74,6 +73,7 @@ export default function HomeScreen(
         setSelectedDay={setSelectedDay}
       />
       <SelectCity locationBottomSheetRef={locationBottomSheetRef} />
+
       <View
         style={{
           flex: 1,
