@@ -46,6 +46,10 @@ export default function MenuScreen(
             onPress={() => {
               AlertDialog.showLogoutModal(() => {
                 auth().signOut();
+                props.navigation.reset({
+                  index: 0,
+                  routes: [{name: 'BottomTabMenu'}],
+                });
               });
             }}
             leftIcon={faRightFromBracket}
