@@ -25,10 +25,17 @@ interface CalendarComponentProps {
   setSearch: (text: string) => void;
   setSelectedDay: (date: string) => void;
   selectedDay: string;
+  disabledOnPress?: boolean;
 }
 
 const CalendarComponent = (props: CalendarComponentProps) => {
-  const {search, setSearch, selectedDay, setSelectedDay} = props;
+  const {
+    search,
+    setSearch,
+    selectedDay,
+    setSelectedDay,
+    disabledOnPress = false,
+  } = props;
   const [calendarType, setCalendarType] = useState('week');
   const animatedHeight = useRef(
     new Animated.Value(Platform.OS === 'ios' ? 90 : 110),
@@ -58,7 +65,9 @@ const CalendarComponent = (props: CalendarComponentProps) => {
     <SafeAreaView style={{backgroundColor: '#1E8604'}}>
       <Animated.View style={{height: animatedHeight}}>
         {calendarType === 'week' && (
-          <Pressable onPress={toggleCalendarType}>
+          <Pressable
+            style={{marginTop: Platform.OS === 'android' ? 10 : 0}}
+            onPress={toggleCalendarType}>
             <CustomText fontSizes="h5" center color="white">
               {dayjs(selectedDay).format('MMMM YYYY')}
             </CustomText>
@@ -73,6 +82,8 @@ const CalendarComponent = (props: CalendarComponentProps) => {
             <WeekCalendar
               date={selectedDay}
               onDayPress={day => {
+                if (disabledOnPress) return;
+                console.log('a');
                 let maxDate = dayjs().format('YYYY-MM-DD');
                 let selectedDate = dayjs(day.dateString).format('YYYY-MM-DD');
                 if (selectedDate > maxDate) {
@@ -106,6 +117,7 @@ const CalendarComponent = (props: CalendarComponentProps) => {
                     alignItems: 'center',
                     backgroundColor: '#1E8604',
                     paddingHorizontal: 20,
+                    marginTop: 10,
                   }}>
                   <TouchableOpacity
                     onPress={() => {
@@ -184,7 +196,13 @@ const CalendarComponent = (props: CalendarComponentProps) => {
           />
         )}
       </Animated.View>
-      <View style={{marginTop: 10, marginBottom: 7, marginHorizontal: 10}}>
+      <View
+        style={{
+          marginTop:
+            Platform.OS === 'android' ? (calendarType !== 'week' ? 15 : 5) : 10,
+          marginBottom: 7,
+          marginHorizontal: 10,
+        }}>
         <Input
           onFocus={() => {}}
           enableFocusBorder={false}

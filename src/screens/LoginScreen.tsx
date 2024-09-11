@@ -1,6 +1,6 @@
 import {View, TouchableOpacity, Platform} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import React, {useState} from 'react';
+
 import Container from '../components/Container/Container';
 import Input from '../components/Input/Input';
 import styled from 'styled-components';
@@ -8,25 +8,17 @@ import {faEnvelope} from '@fortawesome/free-regular-svg-icons';
 import {faLock} from '@fortawesome/free-solid-svg-icons';
 import CustomText from '../components/Text/Text';
 import Button from '../components/Button/Button';
-import {BottomTabParamList, RootStackParamList} from '../types/navigator';
-import FacebookSvg from '../assets/FacebookSvg';
 import AppleSvg from '../assets/AppleSvg';
 import GoogleSvg from '../assets/GoogleSvg';
 
 import LoginRequest from '../payload/request/LoginRequest';
-import {useDispatch} from 'react-redux';
-import {AppDispatch} from '../store';
-import {AuthActions} from '../store/features/authReducer';
 import AlertDialog from '../components/AlertDialog/AlertDialog';
 import FormContainer, {FormContainerRef} from 'react-native-form-container';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import ErrorCode from '../firebase/ErrorCode';
-import appleAuth, {
-  AppleButton,
-} from '@invertase/react-native-apple-authentication';
+import appleAuth from '@invertase/react-native-apple-authentication';
 export default function LoginScreen(props: any) {
-  const dispatch: AppDispatch = useDispatch();
   const [loginRequest, setLoginRequest] = useState<LoginRequest>({
     email: '',
     password: '',
@@ -38,14 +30,18 @@ export default function LoginScreen(props: any) {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
+
       const {idToken, accessToken} = userInfo as any;
+      console.log(idToken);
       const googleCredential = auth.GoogleAuthProvider.credential(
         idToken,
         accessToken,
       );
       await auth().signInWithCredential(googleCredential);
       props.navigation.goBack();
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
   const login = () => {
     let result = ref.current?.validate({

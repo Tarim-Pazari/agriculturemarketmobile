@@ -17,19 +17,21 @@ import SelectCity from '../components/SelectCity/SelectCity';
 import {BottomSheetRef} from '../components/BottomSheet/CustomBottomSheet';
 import CityListBottomSheet from '../components/BottomSheet/CityListBottomSheet';
 import CalendarComponent from '../components/CalendarComponents';
+import {SIZES} from '../constant/theme';
 
 export default function HomeScreen(
   props: NativeStackScreenProps<RootStackParamList>,
 ) {
+  const [useGetDailyPriceByIds] = useGetDailyPriceByIdsMutation();
+
+  const locationBottomSheetRef = useRef<BottomSheetRef>(null);
   const location = useSelector((state: RootState) => state.app.location);
   const userSelection = location;
+
   const [selectedDay, setSelectedDay] = useState(dayjs().format('YYYY-MM-DD'));
   const [items, setItems] = useState<Array<DailyPriceResponse>>([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
-  const [useGetDailyPriceByIds] = useGetDailyPriceByIdsMutation();
-
-  const locationBottomSheetRef = useRef<BottomSheetRef>(null);
 
   useEffect(() => {
     loadData();
@@ -43,7 +45,7 @@ export default function HomeScreen(
         cityId: userSelection.city.id,
         districtId: userSelection.district.id,
       };
-      console.log(entity);
+
       useGetDailyPriceByIds(entity)
         .unwrap()
         .then(response => {
@@ -71,14 +73,13 @@ export default function HomeScreen(
         setSearch={setSearch}
         selectedDay={selectedDay}
         setSelectedDay={setSelectedDay}
+        disabledOnPress={loading}
       />
       <SelectCity locationBottomSheetRef={locationBottomSheetRef} />
 
       <View
         style={{
           flex: 1,
-
-          marginBottom: Platform.OS === 'ios' ? 0 : 80,
         }}>
         <View
           style={
