@@ -76,6 +76,7 @@ export default function LoginScreen(props: any) {
     auth()
       .signInWithCredential(appleCredential)
       .then(userCredential => {
+        console.log(userCredential);
         props.navigation.goBack();
       })
       .catch(error => {

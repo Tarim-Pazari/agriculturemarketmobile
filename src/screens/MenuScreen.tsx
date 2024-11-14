@@ -18,6 +18,7 @@ export default function MenuScreen(
   props: NativeStackScreenProps<RootStackParamList>,
 ) {
   const {user} = useSelector((state: RootState) => state.auth);
+
   return (
     <Container p={10} gap={5} header title="Menü">
       <Col

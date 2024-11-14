@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Container from '../components/Container/Container';
 import CostRepository from '../repository/CostRepository';
@@ -6,11 +6,11 @@ import {useSelector} from 'react-redux';
 import {RootState} from '../store';
 import styled from 'styled-components';
 import Button from '../components/Button/Button';
-import CustomText from '../components/Text/Text';
 import Cost from '../models/Cost';
 import CustomFlatList from '../components/Flatlist/CustomFlatList';
 import CostItemCard from '../components/CostItemCard/CostItemCard';
 import Loading from '../components/Loading/Loading';
+import {useFocusEffect} from '@react-navigation/native';
 
 export default function CostsScreen(props: any) {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -18,22 +18,28 @@ export default function CostsScreen(props: any) {
   const [costs, setCosts] = useState<Array<Cost>>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    props.navigation.addListener('focus', loadCosts);
+    props.navigation.addListener('focus', () => {
+      loadCosts();
+      console.log('sayfaya girildi');
+    });
     return () => {
       setLoading(true);
       setCosts([]);
     };
   }, []);
+
   const loadCosts = () => {
-    costRepository
-      .getCostsByUserId(user?.uid ?? '')
-      .then(res => {
-        setCosts(res);
-      })
-      .finally(() => setLoading(false));
+    if (user?.uid) {
+      costRepository
+        .getCostsByUserId(user?.uid)
+        .then(res => {
+          setCosts(res);
+        })
+        .finally(() => setLoading(false));
+    }
   };
   return (
-    <Container p={10} header goBackShow title="Maliyetler">
+    <Container p={10} header goBackShow title="Maliyetlers">
       <Loading loading={loading}>
         <Container>
           <CustomFlatList

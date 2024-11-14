@@ -1,4 +1,4 @@
-import {View, ActivityIndicator, Platform} from 'react-native';
+import {View, ActivityIndicator, Platform, Text} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import dayjs from 'dayjs';
 
@@ -17,13 +17,12 @@ import SelectCity from '../components/SelectCity/SelectCity';
 import {BottomSheetRef} from '../components/BottomSheet/CustomBottomSheet';
 import CityListBottomSheet from '../components/BottomSheet/CityListBottomSheet';
 import CalendarComponent from '../components/CalendarComponents';
-import {SIZES} from '../constant/theme';
+import ProductResponse from '../payload/response/ProductResponse';
 
 export default function HomeScreen(
   props: NativeStackScreenProps<RootStackParamList>,
 ) {
   const [useGetDailyPriceByIds] = useGetDailyPriceByIdsMutation();
-
   const locationBottomSheetRef = useRef<BottomSheetRef>(null);
   const location = useSelector((state: RootState) => state.app.location);
   const userSelection = location;
@@ -90,18 +89,25 @@ export default function HomeScreen(
           {loading ? (
             <ActivityIndicator size="large" color="#0000ff" />
           ) : (
-            <CustomFlatList
-              handleRefresh={loadData}
-              notFoundText="Fiyat listesi bulunamadı."
-              renderItem={(item, index) => {
-                return <ProductCard item={item} />;
-              }}
-              data={items?.filter?.(item => {
-                return item?.name
-                  ?.toLowerCase?.()
-                  .includes(search.toLowerCase());
-              })}
-            />
+            <>
+              <CustomFlatList
+                notFoundText="Ürün Bulunamadı"
+                handleRefresh={loadData}
+                renderItem={(item, index) => {
+                  return <ProductCard item={item} />;
+                }}
+                sort={(a: DailyPriceResponse, b: DailyPriceResponse) =>
+                  a.cityName.localeCompare(b.cityName)
+                }
+                filter={(item, value, index) => {
+                  return item?.name
+                    ?.toLowerCase?.()
+                    .includes(value.toLowerCase());
+                }}
+                isSearchable
+                data={items}
+              />
+            </>
           )}
         </View>
       </View>

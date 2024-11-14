@@ -19,6 +19,8 @@ import CostsScreen from '../screens/CostsScreen';
 import EditCostScreen from '../screens/EditCostScreen';
 const Stack = createStackNavigator<RootStackParamList>();
 const RootNavigator = () => {
+  const {user} = useSelector((state: RootState) => state.auth);
+  console.log(user);
   const userRepository = UserRepository.getInstance();
   const {fcmToken} = useFcmToken();
   const location = useSelector((state: RootState) => state.app.location);
@@ -36,8 +38,21 @@ const RootNavigator = () => {
       } as LoginResponse;
       if (user) {
         const getUserInfo = await userRepository.getUser(user.uid);
-
-        dispatch(AuthActions.setUser(entity));
+        if (getUserInfo) {
+          dispatch(AuthActions.setUser(getUserInfo));
+        } else {
+          if (user.providerData.length > 0) {
+            if (
+              user.providerData.some(
+                x =>
+                  x.providerId.includes('google.com') ||
+                  x.providerId.includes('apple.com'),
+              )
+            ) {
+              dispatch(AuthActions.setUser(user));
+            }
+          }
+        }
       } else {
         dispatch(AuthActions.setUser(null));
       }
